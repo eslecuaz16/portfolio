@@ -1,0 +1,211 @@
+---
+import vueIcon from '../assets/tech/vue.svg?raw';
+import nuxtIcon from '../assets/tech/nuxt.svg?raw';
+import javascriptIcon from '../assets/tech/javascript.svg?raw';
+import typescriptIcon from '../assets/tech/typescript.svg?raw';
+import astroIcon from '../assets/tech/astro.svg?raw';
+import tailwindIcon from '../assets/tech/tailwind.svg?raw';
+import vuetifyIcon from '../assets/tech/vuetify.svg?raw';
+import piniaIcon from '../assets/tech/pinia.svg?raw';
+import firebaseIcon from '../assets/tech/firebase.svg?raw';
+import nodeIcon from '../assets/tech/node.svg?raw';
+import gitIcon from '../assets/tech/git.svg?raw';
+import html5Icon from '../assets/tech/html5.svg?raw';
+import css3Icon from '../assets/tech/css3.svg?raw';
+
+const iconMap: Record<string, string> = {
+  vue: vueIcon,
+  nuxt: nuxtIcon,
+  javascript: javascriptIcon,
+  typescript: typescriptIcon,
+  astro: astroIcon,
+  tailwind: tailwindIcon,
+  vuetify: vuetifyIcon,
+  pinia: piniaIcon,
+  firebase: firebaseIcon,
+  node: nodeIcon,
+  git: gitIcon,
+  html5: html5Icon,
+  css3: css3Icon,
+};
+
+const techs = [
+  { name: 'Vue', slug: 'vue' },
+  { name: 'Nuxt', slug: 'nuxt' },
+  { name: 'JavaScript', slug: 'javascript' },
+  { name: 'TypeScript', slug: 'typescript' },
+  { name: 'Astro', slug: 'astro' },
+  { name: 'Tailwind', slug: 'tailwind' },
+  { name: 'Vuetify', slug: 'vuetify' },
+  { name: 'Pinia', slug: 'pinia' },
+  { name: 'Firebase', slug: 'firebase' },
+  { name: 'Node.js', slug: 'node' },
+  { name: 'Git', slug: 'git' },
+  { name: 'HTML5', slug: 'html5' },
+  { name: 'CSS3', slug: 'css3' },
+];
+---
+
+<section class="techstack section" id="tecnologias">
+  <div class="container">
+    <div class="techstack-heading reveal">
+      <span class="eyebrow">Stack</span>
+      <h2>Tecnologías con las que trabajo</h2>
+      <p>
+        Herramientas y lenguajes que uso para construir interfaces modernas,
+        mantenibles y escalables.
+      </p>
+    </div>
+
+    <ul class="techstack-grid">
+      {techs.map((tech, i) => (
+        <li class={`techstack-item reveal techstack-item--${tech.slug}`} data-delay={i}>
+          <span class="techstack-logo" set:html={iconMap[tech.slug]} />
+          <span class="techstack-name">{tech.name}</span>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .techstack-heading {
+    max-width: 640px;
+    margin-bottom: 2.5rem;
+  }
+
+  .techstack .eyebrow {
+    display: block;
+    font-size: 0.8125rem;
+    color: var(--color-text-muted);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  .techstack h2 {
+    font-size: clamp(1.75rem, 3vw, 2.25rem);
+    font-weight: 600;
+    margin: 0 0 0.75rem;
+    letter-spacing: -0.02em;
+  }
+
+  .techstack-heading p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--color-text-muted);
+    margin: 0;
+  }
+
+  .techstack-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .techstack-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    padding: 1.25rem 1rem;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-border);
+    background: rgba(255, 255, 255, 0.02);
+    color: var(--color-text-muted);
+    transition: color 0.25s ease, border-color 0.25s ease, background 0.25s ease, transform 0.25s ease;
+  }
+
+  .techstack-item:hover {
+    border-color: var(--color-border-hover);
+    background: rgba(255, 255, 255, 0.04);
+    transform: translateY(-2px);
+  }
+
+  .techstack-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: inherit;
+    line-height: 0;
+  }
+
+  .techstack-logo :global(svg) {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    fill: currentColor;
+    color: inherit;
+  }
+
+  .techstack-logo :global(path) {
+    fill: currentColor;
+  }
+
+  .techstack-name {
+    font-size: 0.8125rem;
+    font-weight: 500;
+    text-align: center;
+  }
+
+  /* Colores de marca en hover */
+  .techstack-item--vue:hover { color: #42b883; }
+  .techstack-item--nuxt:hover { color: #00dc82; }
+  .techstack-item--javascript:hover { color: #f7df1e; }
+  .techstack-item--typescript:hover { color: #3178c6; }
+  .techstack-item--astro:hover { color: #ff5d01; }
+  .techstack-item--tailwind:hover { color: #06b6d4; }
+  .techstack-item--vuetify:hover { color: #1696f2; }
+  .techstack-item--pinia:hover { color: #ffd859; }
+  .techstack-item--firebase:hover { color: #ffca28; }
+  .techstack-item--node:hover { color: #339933; }
+  .techstack-item--git:hover { color: #f05032; }
+  .techstack-item--html5:hover { color: #e34f26; }
+  .techstack-item--css3:hover { color: #1572b6; }
+
+  .techstack-item.reveal[data-delay='1'] { transition-delay: 30ms; }
+  .techstack-item.reveal[data-delay='2'] { transition-delay: 60ms; }
+  .techstack-item.reveal[data-delay='3'] { transition-delay: 90ms; }
+  .techstack-item.reveal[data-delay='4'] { transition-delay: 120ms; }
+  .techstack-item.reveal[data-delay='5'] { transition-delay: 150ms; }
+  .techstack-item.reveal[data-delay='6'] { transition-delay: 180ms; }
+  .techstack-item.reveal[data-delay='7'] { transition-delay: 210ms; }
+  .techstack-item.reveal[data-delay='8'] { transition-delay: 240ms; }
+  .techstack-item.reveal[data-delay='9'] { transition-delay: 270ms; }
+  .techstack-item.reveal[data-delay='10'] { transition-delay: 300ms; }
+  .techstack-item.reveal[data-delay='11'] { transition-delay: 330ms; }
+  .techstack-item.reveal[data-delay='12'] { transition-delay: 360ms; }
+
+  @media (min-width: 540px) {
+    .techstack-grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .techstack-grid {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+    }
+
+    .techstack-item {
+      padding: 1.5rem 1rem;
+    }
+
+    .techstack-logo :global(svg) {
+      width: 44px;
+      height: 44px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .techstack-grid {
+      grid-template-columns: repeat(5, 1fr);
+    }
+  }
+</style>

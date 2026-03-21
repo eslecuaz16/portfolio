@@ -1,0 +1,395 @@
+---
+// Endpoint de Formspree: recibe los envíos y te notifica por email
+const FORMSPREE_ACTION = 'https://formspree.io/f/mreykage';
+---
+
+<section class="contact section" id="contacto">
+  <div class="container">
+    <div class="contact-intro reveal">
+      <span class="eyebrow">Contacto</span>
+      <h2>Hablemos de tu proyecto</h2>
+      <p>
+        Si tienes una idea, una landing, una web de negocio o quieres mejorar
+        una experiencia digital, podemos construir algo sólido, claro y bien resuelto.
+      </p>
+    </div>
+
+    <div class="contact-form-wrapper reveal">
+      <form
+        class="contact-form"
+        action={FORMSPREE_ACTION}
+        method="POST"
+        data-formspree
+        aria-label="Formulario de contacto"
+      >
+        {/* Honeypot anti-spam: oculto con CSS; si un bot lo llena, Formspree puede rechazar el envío */}
+        <div class="contact-honeypot" aria-hidden="true">
+          <label for="website">No llenar</label>
+          <input type="text" name="_gotcha" id="website" tabindex="-1" autocomplete="off" />
+        </div>
+
+        {/* Asunto que verás en el correo de notificación */}
+        <input type="hidden" name="_subject" value="Nuevo mensaje desde portfolio" />
+        {/* ReCAPTCHA: si lo activas en Formspree (Spam prevention), no hace falta ningún input _captcha aquí */}
+
+        <div class="form-group">
+          <label for="contact-name">Nombre</label>
+          <input
+            type="text"
+            id="contact-name"
+            name="name"
+            required
+            autocomplete="name"
+            placeholder="Tu nombre"
+            maxlength="120"
+          />
+          <span class="form-error" data-error="name" aria-live="polite"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="contact-email">Email</label>
+          <input
+            type="email"
+            id="contact-email"
+            name="email"
+            required
+            autocomplete="email"
+            placeholder="tu@email.com"
+          />
+          <span class="form-error" data-error="email" aria-live="polite"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="contact-type">Tipo de proyecto o servicio</label>
+          <select id="contact-type" name="service_type" required>
+            <option value="" disabled selected>Selecciona una opción</option>
+            <option value="Landing page">Landing page</option>
+            <option value="Sitio web">Sitio web</option>
+            <option value="Aplicación web">Aplicación web</option>
+            <option value="Mejora de experiencia">Mejora de experiencia</option>
+            <option value="Otro / Colaboración">Otro / Colaboración</option>
+          </select>
+          <span class="form-error" data-error="service_type" aria-live="polite"></span>
+        </div>
+
+        <div class="form-group form-group--full">
+          <label for="contact-message">Mensaje</label>
+          <textarea
+            id="contact-message"
+            name="message"
+            required
+            rows="5"
+            placeholder="Cuéntame sobre tu proyecto o lo que necesitas..."
+            maxlength="2000"
+          ></textarea>
+          <span class="form-error" data-error="message" aria-live="polite"></span>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary contact-submit" data-submit-btn>
+            Enviar mensaje
+          </button>
+        </div>
+      </form>
+
+      <div class="contact-feedback contact-feedback--success" data-success hidden>
+        <p><strong>Mensaje enviado.</strong> Te responderé lo antes posible.</p>
+      </div>
+      <div class="contact-feedback contact-feedback--error" data-error hidden>
+        <p><strong>No se pudo enviar.</strong> Revisa los datos o intenta de nuevo más tarde.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Manejo del formulario: validación, envío por fetch y feedback sin salir de la página
+  (function () {
+    const form = document.querySelector('[data-formspree]');
+    if (!form) return;
+
+    const submitBtn = form.querySelector('[data-submit-btn]');
+    const successEl = document.querySelector('[data-success]');
+    const errorEl = document.querySelector('[data-error]');
+    const action = form.action; // usa el action del form (Formspree)
+
+    function setLoading(loading) {
+      if (!submitBtn) return;
+      const inputs = form.querySelectorAll('input, textarea, select');
+      inputs.forEach((el) => (el.disabled = loading));
+      submitBtn.disabled = loading;
+      submitBtn.textContent = loading ? 'Enviando…' : 'Enviar mensaje';
+    }
+
+    function showSuccess() {
+      form.hidden = true;
+      if (successEl) successEl.removeAttribute('hidden');
+      if (errorEl) errorEl.setAttribute('hidden', '');
+    }
+
+    function showError() {
+      if (errorEl) errorEl.removeAttribute('hidden');
+      if (successEl) successEl.setAttribute('hidden', '');
+    }
+
+    function clearFieldErrors() {
+      form.querySelectorAll('[data-error]').forEach((el) => (el.textContent = ''));
+    }
+
+    function setFieldError(name, message) {
+      const el = form.querySelector('[data-error="' + name + '"]');
+      if (el) el.textContent = message;
+    }
+
+    function validate() {
+      clearFieldErrors();
+      let valid = true;
+      const nameInput = form.querySelector('[name="name"]');
+      const emailInput = form.querySelector('[name="email"]');
+      const typeSelect = form.querySelector('[name="service_type"]');
+      const messageArea = form.querySelector('[name="message"]');
+      const name = nameInput && nameInput.value ? nameInput.value.trim() : '';
+      const email = emailInput && emailInput.value ? emailInput.value.trim() : '';
+      const serviceType = typeSelect ? typeSelect.value : '';
+      const message = messageArea && messageArea.value ? messageArea.value.trim() : '';
+
+      if (!name || name.length < 2) {
+        setFieldError('name', 'Escribe tu nombre (mín. 2 caracteres).');
+        valid = false;
+      }
+      if (!email) {
+        setFieldError('email', 'Escribe un email válido.');
+        valid = false;
+      } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        setFieldError('email', 'El formato del email no es válido.');
+        valid = false;
+      }
+      if (!serviceType) {
+        setFieldError('service_type', 'Selecciona un tipo de proyecto.');
+        valid = false;
+      }
+      if (!message || message.length < 10) {
+        setFieldError('message', 'Escribe tu mensaje (mín. 10 caracteres).');
+        valid = false;
+      }
+      return valid;
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (!validate()) return;
+
+      const nameInput = form.querySelector('[name="name"]');
+      const emailInput = form.querySelector('[name="email"]');
+      const typeSelect = form.querySelector('[name="service_type"]');
+      const messageArea = form.querySelector('[name="message"]');
+      const subjectInput = form.querySelector('[name="_subject"]');
+
+      const payload = {
+        name: nameInput && nameInput.value ? nameInput.value.trim() : '',
+        email: emailInput && emailInput.value ? emailInput.value.trim() : '',
+        projectType: typeSelect ? typeSelect.value : '',
+        message: messageArea && messageArea.value ? messageArea.value.trim() : '',
+        _subject: subjectInput && subjectInput.value ? subjectInput.value : 'Nuevo mensaje desde portfolio'
+      };
+
+      setLoading(true);
+      if (errorEl) errorEl.setAttribute('hidden', '');
+
+      try {
+        const res = await fetch(action, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify(payload)
+        });
+        if (res.ok) {
+          showSuccess();
+        } else {
+          showError();
+        }
+      } catch {
+        showError();
+      } finally {
+        setLoading(false);
+      }
+    });
+  })();
+</script>
+
+<style>
+  .contact-intro {
+    max-width: 640px;
+    margin-bottom: 2.5rem;
+  }
+
+  .contact .eyebrow {
+    display: block;
+    font-size: 0.8125rem;
+    color: var(--color-text-muted);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  .contact h2 {
+    font-size: clamp(1.75rem, 3vw, 2.25rem);
+    font-weight: 600;
+    margin: 0 0 0.75rem;
+    letter-spacing: -0.02em;
+  }
+
+  .contact-intro p {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--color-text-muted);
+    margin: 0;
+  }
+
+  .contact-form-wrapper {
+    max-width: 560px;
+  }
+
+  .contact-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem 1.5rem;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .form-group--full {
+    grid-column: 1 / -1;
+  }
+
+  .form-group label {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-text);
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-size: 0.9375rem;
+    font-family: inherit;
+    color: var(--color-text);
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    transition: border-color var(--transition), box-shadow var(--transition);
+  }
+
+  .form-group input::placeholder,
+  .form-group textarea::placeholder {
+    color: var(--color-text-muted);
+    opacity: 0.7;
+  }
+
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    outline: none;
+    border-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.06);
+  }
+
+  .form-group input:disabled,
+  .form-group select:disabled,
+  .form-group textarea:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  .form-group select {
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12' fill='none' stroke='%23a1a1aa' stroke-width='2'%3E%3Cpath d='M2 4l4 4 4-4'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    padding-right: 2.25rem;
+  }
+
+  .form-group textarea {
+    resize: vertical;
+    min-height: 120px;
+  }
+
+  .form-error {
+    font-size: 0.8125rem;
+    color: #f87171;
+  }
+
+  .form-actions {
+    grid-column: 1 / -1;
+    margin-top: 0.25rem;
+  }
+
+  .contact-submit {
+    min-width: 180px;
+  }
+
+  .contact-submit:disabled {
+    opacity: 0.8;
+    cursor: wait;
+  }
+
+  /* Honeypot: oculto para usuarios, visible para bots */
+  .contact-honeypot {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+  }
+
+  .contact-honeypot label,
+  .contact-honeypot input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    clip: rect(0, 0, 0, 0);
+  }
+
+  .contact-feedback {
+    margin-top: 1.5rem;
+    padding: 1.25rem 1.5rem;
+    border-radius: var(--radius-md);
+    font-size: 0.9375rem;
+    line-height: 1.6;
+  }
+
+  .contact-feedback p {
+    margin: 0;
+  }
+
+  .contact-feedback--success {
+    background: rgba(52, 199, 89, 0.1);
+    border: 1px solid rgba(52, 199, 89, 0.25);
+    color: #b8e8c4;
+  }
+
+  .contact-feedback--error {
+    background: rgba(239, 68, 68, 0.08);
+    border: 1px solid rgba(239, 68, 68, 0.2);
+    color: #fecaca;
+  }
+
+  @media (max-width: 540px) {
+    .contact-form {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+  }
+</style>

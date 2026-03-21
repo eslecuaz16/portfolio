@@ -1,0 +1,86 @@
+---
+---
+<section class="hero section" id="hero">
+  <div class="container">
+    <span class="hero-eyebrow reveal">Frontend Developer · Freelance</span>
+    <h1 class="hero-title reveal">
+      Sitios web que <strong>convierten visitas en clientes</strong>
+    </h1>
+    <p class="hero-subtitle reveal">
+      Desarrollo Web para negocios y marcas. Landing pages optimizadas,
+      sitios web profesionales y experiencias digitales que ayudan a tu negocio
+      a crecer.
+    </p>
+    <div class="hero-ctas reveal">
+      <a href="#proyectos" class="btn btn-primary">Ver proyectos</a>
+      <a href="#contacto" class="btn btn-secondary">Cotizar proyecto</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    padding-top: 6rem;
+    padding-bottom: 5rem;
+    min-height: 85vh;
+    display: flex;
+    align-items: center;
+  }
+
+  .hero-eyebrow {
+    display: inline-block;
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    transition-delay: 0ms;
+  }
+
+  .hero-title {
+    font-size: clamp(2rem, 5vw, 3.25rem);
+    font-weight: 600;
+    line-height: 1.15;
+    margin: 0 0 1.25rem;
+    max-width: 720px;
+    letter-spacing: -0.02em;
+  }
+
+  .hero-title strong {
+    color: var(--color-text);
+    font-weight: 600;
+  }
+
+  .hero-subtitle {
+    font-size: 1.125rem;
+    line-height: 1.7;
+    color: var(--color-text-muted);
+    max-width: 560px;
+    margin: 0 0 2rem;
+  }
+
+  .hero-ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.875rem;
+  }
+
+  .hero .reveal:nth-child(2) { transition-delay: 50ms; }
+  .hero .reveal:nth-child(3) { transition-delay: 100ms; }
+  .hero .reveal:nth-child(4) { transition-delay: 150ms; }
+  .hero .reveal:nth-child(5) { transition-delay: 200ms; }
+  .hero .reveal:nth-child(6) { transition-delay: 250ms; }
+  .hero .reveal:nth-child(7) { transition-delay: 300ms; }
+  .hero .reveal:nth-child(8) { transition-delay: 350ms; }
+
+  @media (min-width: 768px) {
+    .hero {
+      padding-top: 8rem;
+      padding-bottom: 7rem;
+    }
+
+    .hero-subtitle {
+      font-size: 1.25rem;
+    }
+  }
+</style>

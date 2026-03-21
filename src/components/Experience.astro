@@ -1,0 +1,207 @@
+---
+const experiences = [
+  {
+    company: 'minu',
+    role: 'Front End Leader',
+    period: 'feb. 2023 — actualidad',
+    location: 'Ciudad de México · Híbrido',
+    description:
+      'Lidero iniciativas de desarrollo frontend para nuevas funcionalidades en web y apps móviles, construyendo experiencias escalables con Vue.js en colaboración cercana con producto y diseño.',
+    highlights: [
+      'Arquitectura de componentes reutilizables para mejorar mantenibilidad y escalabilidad.',
+      'Implementación de interfaces alineadas a lineamientos White Label.',
+      'Optimización de flujos críticos y corrección de bugs con foco en experiencia de usuario.',
+      'Participación en definición y mejora de historias de usuario junto a producto.',
+      'Integración de herramientas externas como SendGrid, CleverTap y Capacitor.js.',
+      'Trabajo colaborativo bajo metodología Scrum.',
+    ],
+  },
+  {
+    company: 'Aloux',
+    role: 'Desarrollador Front-End',
+    period: 'oct. 2021 — ene. 2023',
+    location: 'México',
+    description:
+      'Desarrollo y ejecuto soluciones frontend personalizadas para distintos clientes, desde la definición técnica hasta la implementación y entrega final.',
+    highlights: [
+      'Arquitectura e implementación de aplicaciones web con Vue.js, Nuxt.js y Vuetify.',
+      'Desarrollo de interfaces centradas en el usuario, priorizando usabilidad, rendimiento y escalabilidad.',
+      'Integración de servicios y lógica de negocio con JavaScript y Node.js.',
+      'Gestión de proyectos, planeación y seguimiento de entregables.',
+      'Comunicación constante con clientes para traducir necesidades de negocio en soluciones técnicas.',
+    ],
+  },
+];
+---
+
+<section class="experience section" id="experiencia">
+  <div class="container">
+    <div class="section-heading reveal">
+      <span class="eyebrow">Experiencia laboral</span>
+      <h2>Trayectoria en productos digitales</h2>
+      <p>
+        Experiencia liderando y desarrollando interfaces para productos reales,
+        desde fintech hasta soluciones a medida para clientes.
+      </p>
+    </div>
+
+    <div class="experience-timeline">
+      {experiences.map((exp) => (
+        <article class="experience-item reveal">
+          <div class="experience-marker" aria-hidden="true" />
+          <div class="experience-card">
+            <header class="experience-header">
+              <div>
+                <h3>{exp.role}</h3>
+                <p class="experience-company">{exp.company}</p>
+              </div>
+              <div class="experience-meta">
+                <span>{exp.period}</span>
+                <span>{exp.location}</span>
+              </div>
+            </header>
+            <p class="experience-description">{exp.description}</p>
+            <ul class="experience-highlights">
+              {exp.highlights.map((item) => (
+                <li>{item}</li>
+              ))}
+            </ul>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .experience-timeline {
+    position: relative;
+    margin-top: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+  }
+
+  .experience-item {
+    position: relative;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    column-gap: 1.25rem;
+    align-items: flex-start;
+  }
+
+  .experience-marker {
+    width: 12px;
+    height: 12px;
+    border-radius: 999px;
+    background: var(--color-text);
+    position: relative;
+    margin-top: 0.75rem;
+  }
+
+  .experience-marker::after {
+    content: '';
+    position: absolute;
+    top: 12px;
+    left: 50%;
+    width: 1px;
+    height: calc(100% + 1.5rem);
+    transform: translateX(-50%);
+    background: linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.14),
+      rgba(255, 255, 255, 0.02)
+    );
+  }
+
+  .experience-item:last-child .experience-marker::after {
+    height: 0;
+  }
+
+  .experience-card {
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-border);
+    background: rgba(255, 255, 255, 0.02);
+    padding: 1.5rem 1.5rem 1.35rem;
+  }
+
+  .experience-header {
+    display: flex;
+    justify-content: space-between;
+    gap: 1.25rem;
+    align-items: flex-start;
+    margin-bottom: 0.75rem;
+  }
+
+  .experience-header h3 {
+    font-size: 1.0625rem;
+    font-weight: 600;
+    margin: 0 0 0.15rem;
+  }
+
+  .experience-company {
+    margin: 0;
+    font-size: 0.92rem;
+    color: var(--color-text-muted);
+  }
+
+  .experience-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    font-size: 0.8125rem;
+    color: var(--color-text-muted);
+    text-align: right;
+    white-space: nowrap;
+  }
+
+  .experience-description {
+    font-size: 0.9375rem;
+    color: var(--color-text-muted);
+    margin: 0 0 0.75rem;
+  }
+
+  .experience-highlights {
+    margin: 0;
+    padding-left: 1.1rem;
+    list-style: disc;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  .experience-highlights li {
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+  }
+
+  @media (max-width: 640px) {
+    .experience-item {
+      grid-template-columns: 1fr;
+      column-gap: 0;
+    }
+
+    .experience-marker {
+      display: none;
+    }
+
+    .experience-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.4rem;
+    }
+
+    .experience-meta {
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      text-align: left;
+      white-space: normal;
+    }
+
+    .experience-card {
+      padding: 1.25rem 1.1rem 1.1rem;
+    }
+  }
+</style>
+

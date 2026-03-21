@@ -1,0 +1,124 @@
+---
+const services = [
+  {
+    title: 'Sitios web para negocio',
+    description:
+      'Presencia web profesional: multi-página, responsive y preparada para SEO y analíticas.',
+  },
+  {
+    title: 'UX y performance',
+    description:
+      'Optimización de experiencia de usuario, tiempos de carga y accesibilidad web.',
+  },
+  {
+    title: 'Gestores Administrativos',
+      description: 'Aplicación diseñada para estructurar y simplificar la gestión administrativa, mejorando visibilidad, control y eficiencia en procesos internos.'
+  }
+];
+---
+
+<section class="services section" id="servicios">
+  <div class="container">
+    <div class="section-heading reveal">
+      <span class="eyebrow">Servicios</span>
+      <h2>En qué puedo ayudarte</h2>
+      <p>
+        Desarrollo soluciones web que conectan tu negocio con tus clientes de
+        forma clara y profesional.
+      </p>
+    </div>
+
+    <div class="services-grid">
+      {services.map((service, i) => (
+        <article class="service-card reveal" data-delay={i}>
+          <h3>{service.title}</h3>
+          <p>{service.description}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .section-heading {
+    max-width: 640px;
+    margin-bottom: 2.5rem;
+  }
+
+  .eyebrow {
+    display: block;
+    font-size: 0.8125rem;
+    color: var(--color-text-muted);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  .section-heading h2 {
+    font-size: clamp(1.75rem, 3vw, 2.25rem);
+    font-weight: 600;
+    margin: 0 0 0.75rem;
+    letter-spacing: -0.02em;
+  }
+
+  .section-heading p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--color-text-muted);
+    margin: 0;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .service-card {
+    padding: 1.5rem;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-border);
+    background: rgba(255, 255, 255, 0.02);
+    transition: transform 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+  }
+
+  .service-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--color-border-hover);
+    background: rgba(255, 255, 255, 0.04);
+  }
+
+  .service-card h3 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin: 0 0 0.5rem;
+  }
+
+  .service-card p {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: var(--color-text-muted);
+    margin: 0;
+  }
+
+  .service-card.reveal[data-delay='1'] { transition-delay: 80ms; }
+  .service-card.reveal[data-delay='2'] { transition-delay: 160ms; }
+  .service-card.reveal[data-delay='3'] { transition-delay: 240ms; }
+
+  @media (min-width: 768px) {
+    .services-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.25rem;
+    }
+
+    .service-card {
+      padding: 1.75rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .services-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+</style>

@@ -1,0 +1,78 @@
+---
+---
+<nav class="navbar">
+  <div class="container navbar-inner">
+    <a class="navbar-logo">Ing. Esteban Lecuona</a>
+    <ul class="navbar-links">
+      <li><a href="#servicios">Servicios</a></li>
+      <li><a href="#proyectos">Proyectos</a></li>
+      <li><a href="#sobre-mi">Sobre mí</a></li>
+      <li><a href="#contacto" class="navbar-cta">Contacto</a></li>
+    </ul>
+  </div>
+</nav>
+
+<style>
+  .navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    padding: 1rem 0;
+    background: rgba(10, 10, 11, 0.8);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .navbar-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .navbar-logo {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-text);
+    text-decoration: none;
+  }
+
+  .navbar-links {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+
+  .navbar-links a {
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .navbar-links a:hover {
+    color: var(--color-text);
+  }
+
+  .navbar-cta {
+    padding: 0.5rem 1rem;
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--color-text) !important;
+    border-radius: var(--radius-sm);
+  }
+
+  .navbar-cta:hover {
+    background: rgba(255, 255, 255, 0.12);
+  }
+
+  @media (max-width: 640px) {
+    .navbar-links li:not(:last-child) {
+      display: none;
+    }
+  }
+</style>

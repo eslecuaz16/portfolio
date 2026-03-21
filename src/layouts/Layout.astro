@@ -1,0 +1,25 @@
+---
+import { ClientRouter } from "astro:transitions";
+import "../styles/global.css";
+import NavBar from "../components/NavBar.astro";
+import WhatsAppFloat from "../components/WhatsAppFloat.astro";
+---
+
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Desarrollador frontend freelance. Landing pages, sitios web y experiencias digitales que convierten visitas en clientes." />
+    <title>Portfolio — Frontend Developer · Freelance</title>
+    <ClientRouter />
+  </head>
+  <body>
+    <NavBar />
+    <slot />
+    <WhatsAppFloat />
+    <script>
+      import { initReveal } from '../scripts/reveal';
+      initReveal();
+    </script>
+  </body>
+</html>
