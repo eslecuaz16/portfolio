@@ -1,15 +1,38 @@
 ---
+import type { Locale } from '../i18n/ui';
+import { getUi } from '../i18n/ui';
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = 'es' } = Astro.props;
+const t = getUi(locale);
+const otherLocale: Locale = locale === 'es' ? 'en' : 'es';
+const otherPath = otherLocale === 'en' ? '/en/' : '/';
+const switchLabel = locale === 'es' ? t.nav.langSwitchEn : t.nav.langSwitchEs;
 ---
-<nav class="nav" role="navigation" aria-label="Navegación principal">
+
+<nav class="nav" role="navigation" aria-label={locale === 'es' ? 'Navegación principal' : 'Main navigation'}>
   <div class="container nav-inner">
-    <a href="#hero" class="nav-logo" aria-label="Inicio">
-      <span class="logo-bracket">[</span>eslecuaz<span class="logo-dot">.</span>dev<span class="logo-bracket">]</span>
+    <a href="#hero" class="nav-logo" aria-label={t.nav.homeAria}>
+      <span class="logo-bracket">[</span>Esteban.Lecuona<span class="logo-dot">.</span>dev<span class="logo-bracket">]</span>
     </a>
     <ul class="nav-links">
-      <li><a href="#servicios">servicios</a></li>
-      <li><a href="#proyectos">proyectos</a></li>
-      <li><a href="#experiencia">experiencia</a></li>
-      <li><a href="#contacto" class="nav-cta">contrátame →</a></li>
+      <li><a href="#servicios">{t.nav.services}</a></li>
+      <li><a href="#proyectos">{t.nav.projects}</a></li>
+      <li><a href="#experiencia">{t.nav.experience}</a></li>
+      <li>
+        <a href={otherPath} class="lang-switch" aria-label={switchLabel} title={switchLabel}>
+          {locale === 'es' ? (
+            <span class="lang-flag" aria-hidden="true">🇲🇽</span>
+          ) : (
+            <span class="lang-flag" aria-hidden="true">🇺🇸</span>
+          )}
+          <span class="lang-code">{locale.toUpperCase()}</span>
+        </a>
+      </li>
+      <li><a href="#contacto" class="nav-cta">{t.nav.cta}</a></li>
     </ul>
   </div>
 </nav>
@@ -19,7 +42,7 @@
   position: fixed; top: 0; left: 0; right: 0;
   z-index: 200;
   padding: 1rem 0;
-  background: rgba(6,8,12,.8);
+  background: rgba(11, 16, 32, .88);
   backdrop-filter: blur(18px);
   border-bottom: 1px solid var(--border);
 }
@@ -27,6 +50,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 1rem;
 }
 .nav-logo {
   font-family: var(--mono);
@@ -36,6 +60,7 @@
   text-decoration: none;
   letter-spacing: -.01em;
   transition: color .2s;
+  flex-shrink: 0;
 }
 .logo-bracket { color: var(--accent); }
 .logo-dot     { color: var(--muted); }
@@ -43,9 +68,11 @@
 
 .nav-links {
   display: flex;
-  gap: 2rem;
+  gap: clamp(.75rem, 2vw, 2rem);
   list-style: none;
   align-items: center;
+  flex-wrap: wrap;
+  justify-content: flex-end;
 }
 .nav-links a {
   font-family: var(--mono);
@@ -57,10 +84,33 @@
 }
 .nav-links a:hover { color: var(--text); }
 
+.lang-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
+  padding: .35rem .55rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  line-height: 1;
+}
+.lang-switch:hover {
+  border-color: rgba(79, 140, 255, .35);
+  color: var(--accent) !important;
+}
+.lang-flag {
+  font-size: 1.1rem;
+  line-height: 1;
+}
+.lang-code {
+  font-size: .62rem;
+  letter-spacing: .12em;
+  opacity: .85;
+}
+
 .nav-cta {
   padding: .5rem 1.2rem;
   background: transparent;
-  border: 1px solid rgba(74,242,161,.3) !important;
+  border: 1px solid rgba(79, 140, 255, .32) !important;
   color: var(--accent) !important;
   border-radius: var(--radius);
   transition: background .2s, transform .2s !important;
@@ -71,6 +121,7 @@
 }
 
 @media (max-width: 640px) {
-  .nav-links li:not(:last-child) { display: none; }
+  .nav-links li:not(:last-child):not(:nth-last-child(2)) { display: none; }
+  /* Móvil: logo, bandera, CTA */
 }
 </style>

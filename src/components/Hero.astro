@@ -1,56 +1,65 @@
 ---
+import type { Locale } from '../i18n/ui';
+import { getUi } from '../i18n/ui';
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = 'es' } = Astro.props;
+const t = getUi(locale);
+const rotating = [...t.hero.rotating];
+const wordsCodeHtml = rotating
+  .map((w, i) => {
+    const esc = w.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+    const comma = i < rotating.length - 1 ? ',' : '';
+    return `&nbsp;&nbsp;<span class="str">'${esc}'</span><span class="op">${comma}</span>`;
+  })
+  .join('<br>\n');
 ---
+
 <section class="hero section" id="hero">
-  <!-- ambient glows -->
   <div class="glow glow-1" aria-hidden="true"></div>
   <div class="glow glow-2" aria-hidden="true"></div>
 
   <div class="container hero-grid">
-    <!-- LEFT -->
     <div class="hero-left">
       <div class="hero-badge reveal">
         <span class="badge-dot pulse" aria-hidden="true"></span>
-        Disponible para proyectos
+        {t.hero.badge}
       </div>
 
       <h1 class="hero-h1 reveal" style="transition-delay:.08s">
-        <span class="h1-dim">Interfaces</span><br>
-        <span class="h1-accent" id="rotating-word">que convierten.</span><br>
-        <span class="h1-ghost">desde cero.</span>
+        <span class="h1-dim">{t.hero.h1Line1}</span><br>
+        <span class="h1-accent" id="rotating-word">{rotating[0]}</span><br>
+        <span class="h1-ghost">{t.hero.h1Line3}</span>
       </h1>
 
-      <p class="hero-desc reveal" style="transition-delay:.16s">
-        Soy <strong>Esteban Lecuona</strong>, Frontend Developer con 3+ años
-        construyendo productos digitales. Especializado en
-        <strong>Vue.js, Nuxt, TypeScript y Astro</strong>.
-        Código limpio, performance real, resultados medibles.
-      </p>
+      <p class="hero-desc reveal" style="transition-delay:.16s" set:html={t.hero.desc} />
 
       <div class="hero-ctas reveal" style="transition-delay:.24s">
-        <a href="#proyectos" class="btn btn-primary">Ver proyectos</a>
-        <a href="#contacto"  class="btn btn-ghost">Hablemos →</a>
+        <a href="#proyectos" class="btn btn-primary">{t.hero.ctaProjects}</a>
+        <a href="#contacto"  class="btn btn-ghost">{t.hero.ctaContact}</a>
       </div>
 
-      <!-- mini stats -->
       <div class="hero-stats reveal" style="transition-delay:.32s">
         <div class="hstat">
           <span class="hstat-num" data-target="3">0</span>
-          <span class="hstat-label">años exp.</span>
+          <span class="hstat-label">{t.hero.statYears}</span>
         </div>
         <div class="hstat-sep" aria-hidden="true">/</div>
         <div class="hstat">
           <span class="hstat-num" data-target="12">0</span>
-          <span class="hstat-label">proyectos</span>
+          <span class="hstat-label">{t.hero.statProjects}</span>
         </div>
         <div class="hstat-sep" aria-hidden="true">/</div>
         <div class="hstat">
           <span class="hstat-num" data-target="97">0</span>
-          <span class="hstat-label">lighthouse</span>
+          <span class="hstat-label">{t.hero.statLh}</span>
         </div>
       </div>
     </div>
 
-    <!-- RIGHT — code window -->
     <div class="hero-right reveal" style="transition-delay:.2s" aria-hidden="true">
       <div class="code-window hero-code" style="transform:perspective(1000px) rotateY(-5deg) rotateX(2deg)">
         <div class="code-bar">
@@ -65,9 +74,7 @@
 <span class="kw">import</span> <span class="op">{</span> <span class="fn">ref</span><span class="op">,</span> <span class="fn">onMounted</span> <span class="op">}</span> <span class="kw">from</span> <span class="str">'vue'</span><br>
 <br>
 <span class="kw">const</span> <span class="prop">words</span> <span class="op">=</span> <span class="op">[</span><br>
-&nbsp;&nbsp;<span class="str">'que convierten.'</span><span class="op">,</span><br>
-&nbsp;&nbsp;<span class="str">'que retienen.'</span><span class="op">,</span><br>
-&nbsp;&nbsp;<span class="str">'que impactan.'</span><span class="op">,</span><br>
+<span set:html={wordsCodeHtml} /><br>
 <span class="op">]</span><br>
 <br>
 <span class="kw">const</span> <span class="prop">current</span> <span class="op">=</span> <span class="fn">ref</span><span class="op">(</span><span class="num">0</span><span class="op">)</span><br>
@@ -79,7 +86,7 @@
 <span class="tag">&lt;/script&gt;</span><br>
 <br>
 <span class="tag">&lt;template&gt;</span><br>
-&nbsp;&nbsp;<span class="tag">&lt;h1&gt;</span><span class="cm">Interfaces</span><span class="tag">&lt;/h1&gt;</span><br>
+&nbsp;&nbsp;<span class="tag">&lt;h1&gt;</span><span class="cm">{t.hero.h1Line1}</span><span class="tag">&lt;/h1&gt;</span><br>
 &nbsp;&nbsp;<span class="tag">&lt;Transition</span> <span class="at">name</span><span class="op">=</span><span class="str">"fade"</span><span class="tag">&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="tag">&lt;span</span> <span class="at">:key</span><span class="op">=</span><span class="str">"current"</span><span class="tag">&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="op">&#123;&#123;</span> <span class="prop">words</span><span class="op">[</span><span class="prop">current</span> <span class="op">%</span> <span class="prop">words</span><span class="op">.</span><span class="prop">length</span><span class="op">]</span> <span class="op">&#125;&#125;</span><br>
@@ -110,12 +117,12 @@
 .glow-1 {
   width: 600px; height: 600px;
   top: -200px; right: -150px;
-  background: radial-gradient(circle, rgba(74,242,161,.055) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(79, 140, 255, .07) 0%, transparent 70%);
 }
 .glow-2 {
   width: 500px; height: 500px;
   bottom: -100px; left: 20%;
-  background: radial-gradient(circle, rgba(99,179,255,.04) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(139, 92, 246, .05) 0%, transparent 70%);
 }
 .hero-grid {
   display: grid;
@@ -125,7 +132,6 @@
   position: relative;
   z-index: 1;
 }
-/* BADGE */
 .hero-badge {
   display: inline-flex;
   align-items: center;
@@ -133,8 +139,8 @@
   font-family: var(--mono);
   font-size: .7rem;
   color: var(--accent);
-  background: rgba(74,242,161,.07);
-  border: 1px solid rgba(74,242,161,.2);
+  background: rgba(79, 140, 255, .08);
+  border: 1px solid rgba(79, 140, 255, .22);
   padding: .35rem .85rem;
   border-radius: 20px;
   letter-spacing: .08em;
@@ -145,7 +151,6 @@
   background: var(--accent);
   border-radius: 50%;
 }
-/* H1 */
 .hero-h1 {
   font-size: clamp(2.8rem, 5.5vw, 5rem);
   font-weight: 800;
@@ -156,13 +161,13 @@
 .h1-dim   { color: var(--text); }
 .h1-accent {
   display: inline-block;
-  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  background: linear-gradient(135deg, var(--accent), var(--accent-purple), var(--accent2));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   transition: opacity .35s, transform .35s;
 }
-.h1-ghost { color: rgba(232,238,248,.12); }
+.h1-ghost { color: rgba(245, 247, 250, .12); }
 
 .hero-desc {
   font-family: var(--mono);
@@ -172,11 +177,10 @@
   max-width: 480px;
   margin-bottom: 2.25rem;
 }
-.hero-desc strong { color: var(--text); font-weight: 500; }
+.hero-desc :global(strong) { color: var(--text); font-weight: 500; }
 
 .hero-ctas { display: flex; gap: .875rem; flex-wrap: wrap; margin-bottom: 2.5rem; }
 
-/* STATS */
 .hero-stats {
   display: flex;
   align-items: center;
@@ -187,7 +191,7 @@
   font-size: 1.6rem;
   font-weight: 800;
   letter-spacing: -.04em;
-  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  background: linear-gradient(135deg, var(--accent), var(--accent-purple), var(--accent2));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -195,7 +199,6 @@
 .hstat-label { font-family: var(--mono); font-size: .62rem; color: var(--muted); letter-spacing: .1em; }
 .hstat-sep   { font-family: var(--mono); color: var(--border-hi); font-size: 1.2rem; }
 
-/* CODE WINDOW */
 .hero-code { box-shadow: 0 32px 80px rgba(0,0,0,.55); }
 .live-badge {
   font-family: var(--mono);
@@ -213,48 +216,46 @@
 }
 </style>
 
-<script is:inline>
-// Rotating word
-var _words = ['que convierten.','que retienen.','que impactan.','que sorprenden.'];
-var _wi = 0;
-var _rotEl = document.getElementById('rotating-word');
-if (_rotEl) {
-  _rotEl.style.transition = 'opacity .3s ease, transform .3s ease';
-  function _rotate() {
-    _rotEl.style.opacity = '0';
-    _rotEl.style.transform = 'translateY(-8px)';
-    setTimeout(function() {
-      _wi = (_wi + 1) % _words.length;
-      _rotEl.textContent = _words[_wi];
-      _rotEl.style.opacity = '1';
-      _rotEl.style.transform = 'translateY(0)';
-      setTimeout(_rotate, 2800);
-    }, 320);
-  }
-  setTimeout(_rotate, 2800);
-}
-
-// Counters rAF
-var _numObs = new IntersectionObserver(function(entries) {
-  entries.forEach(function(e) {
-    if (!e.isIntersecting) return;
-    var el = e.target;
-    var target = parseInt(el.getAttribute('data-target') || '0', 10);
-    var dur = 1200;
-    var start = performance.now();
-    function step(now) {
-      var p = Math.min((now - start) / dur, 1);
-      var ease = 1 - Math.pow(1 - p, 3);
-      el.textContent = Math.floor(ease * target) + (target === 97 ? '' : '+');
-      if (p < 1) {
-        requestAnimationFrame(step);
-      } else {
-        el.textContent = target + (target === 97 ? '' : '+');
-      }
+<script define:vars={{ rotating }}>
+  var _words = rotating;
+  var _wi = 0;
+  var _rotEl = document.getElementById('rotating-word');
+  if (_rotEl && _words && _words.length) {
+    _rotEl.style.transition = 'opacity .3s ease, transform .3s ease';
+    function _rotate() {
+      _rotEl.style.opacity = '0';
+      _rotEl.style.transform = 'translateY(-8px)';
+      setTimeout(function() {
+        _wi = (_wi + 1) % _words.length;
+        _rotEl.textContent = _words[_wi];
+        _rotEl.style.opacity = '1';
+        _rotEl.style.transform = 'translateY(0)';
+        setTimeout(_rotate, 2800);
+      }, 320);
     }
-    requestAnimationFrame(step);
-    _numObs.unobserve(el);
-  });
-}, { threshold: 0.5 });
-document.querySelectorAll('.hstat-num').forEach(function(el) { _numObs.observe(el); });
+    setTimeout(_rotate, 2800);
+  }
+
+  var _numObs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (!e.isIntersecting) return;
+      var el = e.target;
+      var target = parseInt(el.getAttribute('data-target') || '0', 10);
+      var dur = 1200;
+      var start = performance.now();
+      function step(now) {
+        var p = Math.min((now - start) / dur, 1);
+        var ease = 1 - Math.pow(1 - p, 3);
+        el.textContent = Math.floor(ease * target) + (target === 97 ? '' : '+');
+        if (p < 1) {
+          requestAnimationFrame(step);
+        } else {
+          el.textContent = target + (target === 97 ? '' : '+');
+        }
+      }
+      requestAnimationFrame(step);
+      _numObs.unobserve(el);
+    });
+  }, { threshold: 0.5 });
+  document.querySelectorAll('.hstat-num').forEach(function(el) { _numObs.observe(el); });
 </script>

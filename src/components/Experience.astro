@@ -1,42 +1,21 @@
 ---
-const experiences = [
-  {
-    company: 'minu',
-    role: 'Front End Leader',
-    period: 'feb. 2023 — actualidad',
-    location: 'CDMX · Híbrido',
-    desc: 'Liderando iniciativas frontend para nuevas funcionalidades web y mobile. Arquitectura de componentes Vue.js en colaboración con producto y diseño.',
-    highlights: [
-      'Arquitectura de componentes reutilizables con Vue 3 + Pinia',
-      'Implementación de interfaces White Label multi-tenant',
-      'Integración de SendGrid, CleverTap y Capacitor.js',
-      'Optimización de flujos críticos y performance (Core Web Vitals)',
-      'Metodología Scrum, ceremonies y sprint planning',
-    ],
-    badge: 'actual',
-  },
-  {
-    company: 'Aloux',
-    role: 'Desarrollador Front-End',
-    period: 'oct. 2021 — ene. 2023',
-    location: 'México · Remoto',
-    desc: 'Desarrollo y entrega de soluciones frontend personalizadas para clientes: desde definición técnica hasta implementación y QA.',
-    highlights: [
-      'Aplicaciones web con Vue.js, Nuxt.js y Vuetify',
-      'Interfaces centradas en UX, accesibilidad y rendimiento',
-      'Integración backend con Node.js y Firebase',
-      'Comunicación directa con clientes para traducir negocio en código',
-    ],
-    badge: null,
-  },
-];
+import type { Locale } from '../i18n/ui';
+import { getUi } from '../i18n/ui';
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = 'es' } = Astro.props;
+const t = getUi(locale);
+const experiences = t.experience.items;
 ---
 <section class="section" id="experiencia" style="background:var(--bg2)">
   <div class="container">
     <div class="reveal">
-      <p class="eyebrow">// 04 — Experiencia</p>
-      <h2 class="section-title">Trayectoria <span>profesional</span></h2>
-      <p class="section-sub">Experiencia construyendo productos reales en equipos reales.</p>
+      <p class="eyebrow">{t.experience.eyebrow}</p>
+      <h2 class="section-title">{t.experience.title}<span>{t.experience.titleAccent}</span></h2>
+      <p class="section-sub">{t.experience.sub}</p>
     </div>
 
     <div class="exp-list">
@@ -52,7 +31,7 @@ const experiences = [
                 <h3 class="exp-role">{e.role}</h3>
                 <p class="exp-company">
                   {e.company}
-                  {e.badge && <span class="exp-badge">{e.badge}</span>}
+                  {i === 0 && <span class="exp-badge">{t.experience.badgeCurrent}</span>}
                 </p>
               </div>
               <div class="exp-meta">
@@ -91,14 +70,14 @@ const experiences = [
   border-radius: 50%;
   background: var(--accent);
   border: 2px solid var(--bg2);
-  box-shadow: 0 0 0 2px rgba(74,242,161,.3);
+  box-shadow: 0 0 0 2px rgba(79, 140, 255, .28);
   flex-shrink: 0;
 }
 .exp-line {
   width: 1px;
   flex: 1;
   min-height: 2rem;
-  background: linear-gradient(to bottom, rgba(74,242,161,.2), rgba(74,242,161,.03));
+  background: linear-gradient(to bottom, rgba(79, 140, 255, .18), rgba(79, 140, 255, .03));
   margin-top: 6px;
 }
 
@@ -110,7 +89,7 @@ const experiences = [
   margin-bottom: 1.5rem;
   transition: border-color .3s;
 }
-.exp-card:hover { border-color: rgba(74,242,161,.2); }
+.exp-card:hover { border-color: rgba(79, 140, 255, .22); }
 
 .exp-top {
   display: flex;
@@ -135,7 +114,7 @@ const experiences = [
   padding: .18rem .55rem;
   background: var(--accent-dim);
   color: var(--accent);
-  border: 1px solid rgba(74,242,161,.2);
+  border: 1px solid rgba(79, 140, 255, .22);
   border-radius: 3px;
 }
 .exp-meta {
@@ -162,7 +141,7 @@ const experiences = [
   flex-direction: column;
   gap: .4rem;
   padding-left: .5rem;
-  border-left: 1px solid rgba(74,242,161,.12);
+  border-left: 1px solid rgba(34, 211, 238, .14);
 }
 .exp-highlights li {
   font-family: var(--mono);

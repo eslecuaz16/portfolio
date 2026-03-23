@@ -1,4 +1,7 @@
 ---
+import type { Locale } from '../i18n/ui';
+import { getUi } from '../i18n/ui';
+
 const skills = [
   { name: 'Vue 3 / Nuxt',    pct: 92, color: 'green' },
   { name: 'TypeScript',       pct: 85, color: 'blue'  },
@@ -11,18 +14,24 @@ const skills = [
   { name: 'Git / GitHub',     pct: 91, color: 'green' },
   { name: 'Figma',            pct: 78, color: 'blue'  },
 ];
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = 'es' } = Astro.props;
+const t = getUi(locale);
 ---
 
 <section class="section" id="tecnologias">
   <div class="container">
     <div class="reveal">
-      <p class="eyebrow">// 03 — Stack</p>
-      <h2 class="section-title">Tecnologías <span>que domino</span></h2>
-      <p class="section-sub">Herramientas con las que construyo a diario. Sin teoría — experiencia real en proyectos de producción.</p>
+      <p class="eyebrow">{t.tech.eyebrow}</p>
+      <h2 class="section-title">{t.tech.title}<span>{t.tech.titleAccent}</span></h2>
+      <p class="section-sub">{t.tech.sub}</p>
     </div>
 
     <div class="stack-layout">
-      <!-- BARS -->
       <div class="stack-bars reveal" style="transition-delay:.1s">
         {skills.map((s, i) => (
           <div class="skill-row" style={`transition-delay:${i*60}ms`}>
@@ -45,7 +54,6 @@ const skills = [
         ))}
       </div>
 
-      <!-- LIVE CODE -->
       <div class="stack-code reveal" style="transition-delay:.15s">
         <div class="code-window">
           <div class="code-bar">
@@ -56,7 +64,7 @@ const skills = [
             <span class="live-badge">● live</span>
           </div>
           <div class="code-body">
-<span class="cm">// Custom composable — Vue 3</span><br>
+<span class="cm">{t.tech.codeComment}</span><br>
 <span class="kw">import</span> <span class="op">{</span> <span class="fn">ref</span><span class="op">,</span> <span class="fn">onMounted</span> <span class="op">}</span> <span class="kw">from</span> <span class="str">'vue'</span><br>
 <br>
 <span class="kw">export function</span> <span class="fn">useReveal</span><span class="op">&lt;</span><br>
@@ -117,7 +125,7 @@ const skills = [
 .skill-pct  { font-family: var(--mono); font-size: .65rem; color: var(--muted); }
 .skill-track {
   height: 2px;
-  background: rgba(255,255,255,.06);
+  background: rgba(245, 247, 250, .06);
   border-radius: 2px;
   overflow: hidden;
 }
@@ -130,7 +138,7 @@ const skills = [
   will-change: transform;
 }
 .skill-fill.animated { transform: scaleX(1); }
-.skill-fill--green { background: linear-gradient(90deg, var(--accent), #82aaff); }
+.skill-fill--green { background: linear-gradient(90deg, var(--accent), var(--accent-purple)); }
 .skill-fill--blue  { background: linear-gradient(90deg, var(--accent2), var(--accent)); }
 
 .stack-code { position: sticky; top: 5rem; }

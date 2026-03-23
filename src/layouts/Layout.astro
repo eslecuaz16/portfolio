@@ -2,20 +2,32 @@
 import '../styles/global.css';
 import NavBar from '../components/NavBar.astro';
 import WhatsAppFloat from '../components/WhatsAppFloat.astro';
+import type { Locale } from '../i18n/ui';
+import { getUi } from '../i18n/ui';
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = 'es' } = Astro.props;
+const t = getUi(locale);
 ---
-<html lang="es">
+
+<html lang={locale === 'en' ? 'en' : 'es'}>
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="description" content="Ing. Esteban Lecuona — Frontend Developer. Interfaces web rápidas, accesibles y orientadas a resultado. Vue.js, Astro, TypeScript."/>
+  <meta name="description" content={t.layout.description}/>
   <meta name="robots" content="index, follow"/>
-  <meta property="og:title" content="Esteban Lecuona — Frontend Developer"/>
-  <meta property="og:description" content="Sitios web y apps que convierten. Especialista en Vue.js, Nuxt, TypeScript y Astro."/>
+  <meta property="og:title" content={t.layout.title}/>
+  <meta property="og:description" content={t.layout.ogDescription}/>
   <meta property="og:type" content="website"/>
   <meta name="twitter:card" content="summary_large_image"/>
-  <title>Esteban Lecuona — Frontend Developer</title>
+  <title>{t.layout.title}</title>
 
-  <!-- Preload fonts non-blocking -->
+  <link rel="alternate" hreflang="es" href="/"/>
+  <link rel="alternate" hreflang="en" href="/en/"/>
+
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link rel="preload" as="style"
@@ -29,18 +41,16 @@ import WhatsAppFloat from '../components/WhatsAppFloat.astro';
   </noscript>
 </head>
 <body>
-  <!-- Custom cursor -->
   <div id="dt-cursor" aria-hidden="true"></div>
   <div id="dt-ring"   aria-hidden="true"></div>
 
-  <NavBar/>
+  <NavBar locale={locale} />
   <main>
     <slot/>
   </main>
-  <WhatsAppFloat/>
+  <WhatsAppFloat locale={locale} />
 
   <script>
-    // ── Cursor (GPU transform, rAF loop) ──
     var cur  = document.getElementById('dt-cursor');
     var ring = document.getElementById('dt-ring');
     var mx=-100,my=-100,rx=-100,ry=-100,hovering=false;
@@ -57,7 +67,6 @@ import WhatsAppFloat from '../components/WhatsAppFloat.astro';
       el.addEventListener('mouseleave', function() { hovering=false; document.body.classList.remove('cursor-hover'); });
     });
 
-    // ── Scroll reveal ──
     var obs = new IntersectionObserver(function(entries) {
       entries.forEach(function(e) {
         if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); }

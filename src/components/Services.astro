@@ -1,37 +1,21 @@
 ---
-const services = [
-  {
-    num: '01',
-    title: 'Landing pages',
-    desc: 'Páginas de conversión rápidas, bien estructuradas y optimizadas para SEO y Core Web Vitals.',
-    icon: '⚡',
-  },
-  {
-    num: '02',
-    title: 'Sitios web de negocio',
-    desc: 'Presencia digital profesional, multi-sección, responsive y conectada a analíticas.',
-    icon: '🌐',
-  },
-  {
-    num: '03',
-    title: 'Aplicaciones web',
-    desc: 'Dashboards, gestores y flujos complejos con Vue.js, arquitectura escalable y buena DX.',
-    icon: '🛠',
-  },
-  {
-    num: '04',
-    title: 'UX & Performance',
-    desc: 'Auditoría, optimización de carga, accesibilidad y mejora de experiencia de usuario.',
-    icon: '📊',
-  },
-];
+import type { Locale } from '../i18n/ui';
+import { getUi } from '../i18n/ui';
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = 'es' } = Astro.props;
+const t = getUi(locale);
+const services = t.services.items;
 ---
 <section class="section" id="servicios">
   <div class="container">
     <div class="reveal">
-      <p class="eyebrow">// 01 — Servicios</p>
-      <h2 class="section-title">En qué <span>puedo ayudarte</span></h2>
-      <p class="section-sub">Soluciones frontend que conectan tu negocio con tus clientes. Sin relleno, sin templates, todo a medida.</p>
+      <p class="eyebrow">{t.services.eyebrow}</p>
+      <h2 class="section-title">{t.services.title}<span>{t.services.titleAccent}</span></h2>
+      <p class="section-sub">{t.services.sub}</p>
     </div>
 
     <div class="srv-grid">
@@ -62,12 +46,12 @@ const services = [
   overflow: hidden;
   transition: border-color .3s, transform .3s;
 }
-.srv-card:hover { border-color: rgba(74,242,161,.25); transform: translateY(-4px); }
+.srv-card:hover { border-color: rgba(79, 140, 255, .26); transform: translateY(-4px); }
 .srv-card::after {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, rgba(74,242,161,.04) 0%, transparent 60%);
+  background: linear-gradient(135deg, rgba(79, 140, 255, .05) 0%, transparent 60%);
   opacity: 0;
   transition: opacity .3s;
 }
@@ -98,7 +82,6 @@ const services = [
   color: var(--muted);
   line-height: 1.8;
 }
-/* ghost num bg */
 .srv-card::before {
   content: attr(data-n);
   position: absolute;

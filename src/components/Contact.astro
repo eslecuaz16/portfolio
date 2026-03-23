@@ -1,34 +1,42 @@
 ---
+import type { Locale } from '../i18n/ui';
+import { getUi } from '../i18n/ui';
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = 'es' } = Astro.props;
+const t = getUi(locale);
 const FORMSPREE = 'https://formspree.io/f/mreykage';
+const options = t.contact.options;
 ---
+
 <section class="section" id="contacto">
   <div class="container">
     <div class="contact-grid">
-      <!-- LEFT -->
       <div class="contact-left reveal">
-        <p class="eyebrow">// 05 — Contacto</p>
+        <p class="eyebrow">{t.contact.eyebrow}</p>
         <div class="contact-heading">
-          ¿Listo<br>para <span class="heading-grad">construir</span><br>algo?
+          {t.contact.headingLine1}<br>{t.contact.headingLine2Before}<span class="heading-grad">{t.contact.headingGrad}</span><br>{t.contact.headingLine3}
         </div>
         <ul class="contact-list">
-          <li>Respondo en menos de 24h</li>
-          <li>Primera consulta gratuita</li>
-          <li>Proyectos desde México 🇲🇽</li>
-          <li>Disponible para clientes internacionales</li>
+          {t.contact.list.map((item) => (
+            <li>{item}</li>
+          ))}
         </ul>
         <div class="contact-socials">
           <a href="https://github.com/eslecuaz16" target="_blank" rel="noopener noreferrer"
-            class="social-link" aria-label="Ver perfil de GitHub">
-            GitHub ↗
+            class="social-link" aria-label={t.contact.ariaGh}>
+            {t.contact.gh}
           </a>
           <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer"
-            class="social-link" aria-label="Ver perfil de LinkedIn">
-            LinkedIn ↗
+            class="social-link" aria-label={t.contact.ariaLi}>
+            {t.contact.li}
           </a>
         </div>
       </div>
 
-      <!-- FORM -->
       <div class="contact-right reveal" style="transition-delay:.12s">
         <form
           class="cform"
@@ -36,55 +44,48 @@ const FORMSPREE = 'https://formspree.io/f/mreykage';
           action={FORMSPREE}
           method="POST"
           novalidate
-          aria-label="Formulario de contacto"
+          aria-label={t.contact.formAria}
         >
-          <!-- Honeypot -->
           <div style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)" aria-hidden="true">
             <input type="text" name="_gotcha" tabindex="-1" autocomplete="off"/>
           </div>
-          <input type="hidden" name="_subject" value="Nuevo mensaje desde portfolio"/>
+          <input type="hidden" name="_subject" value={t.contact.subject}/>
 
           <div class="cform-row">
             <div class="cform-group">
-              <label for="cf-name">Nombre</label>
-              <input type="text" id="cf-name" name="name" required autocomplete="name" placeholder="Tu nombre"/>
+              <label for="cf-name">{t.contact.name}</label>
+              <input type="text" id="cf-name" name="name" required autocomplete="name" placeholder={t.contact.placeholders.name}/>
               <span class="cform-err" data-err="name" aria-live="polite"></span>
             </div>
             <div class="cform-group">
-              <label for="cf-email">Email</label>
-              <input type="email" id="cf-email" name="email" required autocomplete="email" placeholder="tu@email.com"/>
+              <label for="cf-email">{t.contact.email}</label>
+              <input type="email" id="cf-email" name="email" required autocomplete="email" placeholder="you@email.com"/>
               <span class="cform-err" data-err="email" aria-live="polite"></span>
             </div>
           </div>
 
           <div class="cform-group">
-            <label for="cf-type">Tipo de proyecto</label>
+            <label for="cf-type">{t.contact.projectType}</label>
             <select id="cf-type" name="service_type" required>
-              <option value="" disabled selected>Selecciona una opción</option>
-              <option value="Landing page">Landing page</option>
-              <option value="Sitio web">Sitio web</option>
-              <option value="Aplicación web">Aplicación web</option>
-              <option value="Mejora / optimización">Mejora / optimización</option>
-              <option value="Otro">Otro</option>
+              <option value="" disabled selected>{t.contact.selectPlaceholder}</option>
+              {options.map((opt) => (
+                <option value={opt}>{opt}</option>
+              ))}
             </select>
             <span class="cform-err" data-err="service_type" aria-live="polite"></span>
           </div>
 
           <div class="cform-group">
-            <label for="cf-msg">Mensaje</label>
-            <textarea id="cf-msg" name="message" required rows="5" placeholder="Cuéntame sobre tu proyecto..."></textarea>
+            <label for="cf-msg">{t.contact.message}</label>
+            <textarea id="cf-msg" name="message" required rows="5" placeholder={t.contact.placeholders.msg}></textarea>
             <span class="cform-err" data-err="message" aria-live="polite"></span>
           </div>
 
-          <button type="submit" class="btn btn-primary cform-submit" data-btn>Enviar mensaje →</button>
+          <button type="submit" class="btn btn-primary cform-submit" data-btn>{t.contact.submit}</button>
         </form>
 
-        <div class="cform-feedback cform-success" data-success hidden>
-          <strong>✓ Mensaje enviado.</strong> Te responderé pronto.
-        </div>
-        <div class="cform-feedback cform-error" data-senderr hidden>
-          <strong>✗ Error.</strong> Inténtalo de nuevo o escríbeme directo.
-        </div>
+        <div class="cform-feedback cform-success" data-success hidden set:html={t.contact.success} />
+        <div class="cform-feedback cform-error" data-senderr hidden set:html={t.contact.error} />
       </div>
     </div>
   </div>
@@ -97,7 +98,6 @@ const FORMSPREE = 'https://formspree.io/f/mreykage';
   gap: 5rem;
   align-items: start;
 }
-/* LEFT */
 .contact-heading {
   font-size: clamp(2.8rem, 5.5vw, 5rem);
   font-weight: 800;
@@ -106,7 +106,7 @@ const FORMSPREE = 'https://formspree.io/f/mreykage';
   margin-bottom: 2rem;
 }
 .heading-grad {
-  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  background: linear-gradient(135deg, var(--accent), var(--accent-purple), var(--accent2));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -139,9 +139,8 @@ const FORMSPREE = 'https://formspree.io/f/mreykage';
   transition: color .2s, border-color .2s;
   letter-spacing: .07em;
 }
-.social-link:hover { color: var(--accent); border-color: rgba(74,242,161,.3); }
+.social-link:hover { color: var(--accent); border-color: rgba(79, 140, 255, .3); }
 
-/* FORM */
 .cform {
   display: flex;
   flex-direction: column;
@@ -180,11 +179,11 @@ const FORMSPREE = 'https://formspree.io/f/mreykage';
 .cform-group textarea::placeholder { color: var(--muted); opacity: .6; }
 .cform-group input:focus,
 .cform-group select:focus,
-.cform-group textarea:focus { border-color: rgba(74,242,161,.3); }
+.cform-group textarea:focus { border-color: rgba(79, 140, 255, .32); }
 .cform-group select {
   cursor: pointer;
   appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12' fill='none' stroke='%237a8fa8' stroke-width='2'%3E%3Cpath d='M2 4l4 4 4-4'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12' fill='none' stroke='%23AAB3C5' stroke-width='2'%3E%3Cpath d='M2 4l4 4 4-4'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right .875rem center;
   padding-right: 2.25rem;
@@ -200,7 +199,7 @@ const FORMSPREE = 'https://formspree.io/f/mreykage';
   font-size: .78rem;
   line-height: 1.6;
 }
-.cform-success { background: rgba(74,242,161,.07); border: 1px solid rgba(74,242,161,.2); color: #b8e8c4; }
+.cform-success { background: rgba(34, 211, 238, .07); border: 1px solid rgba(34, 211, 238, .22); color: #c8eef8; }
 .cform-error   { background: rgba(255,77,109,.07); border: 1px solid rgba(255,77,109,.2); color: #fecaca; }
 
 @media (max-width: 900px) {
@@ -212,9 +211,17 @@ const FORMSPREE = 'https://formspree.io/f/mreykage';
 }
 </style>
 
-<script>
-  // Evita falsos positivos de TS en funciones anidadas (closures sobre formEl/btnEl)
-  // @ts-nocheck
+<script
+  define:vars={{
+    errName: t.contact.errName,
+    errEmail: t.contact.errEmail,
+    errType: t.contact.errType,
+    errMsg: t.contact.errMsg,
+    sending: t.contact.sending,
+    submitLabel: t.contact.submit,
+    subjectLine: t.contact.subject,
+  }}
+>
   (function () {
     const formEl = document.querySelector('[data-contact-form]');
     if (!(formEl instanceof HTMLFormElement)) return;
@@ -234,19 +241,16 @@ const FORMSPREE = 'https://formspree.io/f/mreykage';
       });
     }
 
-    /** @param {string} name @param {string} msg */
     function setErr(name, msg) {
       const el = formEl.querySelector('[data-err="' + name + '"]');
       if (el) el.textContent = msg;
     }
 
-    /** @param {boolean} loading */
     function setLoad(loading) {
       btnEl.disabled = loading;
-      btnEl.textContent = loading ? 'Enviando…' : 'Enviar mensaje →';
+      btnEl.textContent = loading ? sending : submitLabel;
     }
 
-    /** @param {string} name */
     function getInput(name) {
       return formEl.querySelector('[name="' + name + '"]');
     }
@@ -264,19 +268,19 @@ const FORMSPREE = 'https://formspree.io/f/mreykage';
       const message = msgEl instanceof HTMLTextAreaElement ? msgEl.value.trim() : '';
 
       if (!name || name.length < 2) {
-        setErr('name', 'Escribe tu nombre.');
+        setErr('name', errName);
         ok = false;
       }
       if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-        setErr('email', 'Email inválido.');
+        setErr('email', errEmail);
         ok = false;
       }
       if (!projectType) {
-        setErr('service_type', 'Selecciona un tipo.');
+        setErr('service_type', errType);
         ok = false;
       }
       if (!message || message.length < 10) {
-        setErr('message', 'Mín. 10 caracteres.');
+        setErr('message', errMsg);
         ok = false;
       }
       return ok;
@@ -299,7 +303,7 @@ const FORMSPREE = 'https://formspree.io/f/mreykage';
         email: (emailEl instanceof HTMLInputElement ? emailEl.value : '').trim(),
         projectType: typeEl instanceof HTMLSelectElement ? typeEl.value : '',
         message: (msgEl instanceof HTMLTextAreaElement ? msgEl.value : '').trim(),
-        _subject: 'Nuevo mensaje desde portfolio',
+        _subject: subjectLine,
       };
 
       fetch(action, {

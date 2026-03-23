@@ -1,8 +1,8 @@
 ---
-interface Project {
-  num: string;
-  title: string;
-  desc: string;
+import type { Locale } from '../i18n/ui';
+import { getUi } from '../i18n/ui';
+
+interface ProjectBase {
   stack: string[];
   codeHtml: string;
   filename: string;
@@ -10,11 +10,8 @@ interface Project {
   githubUrl: string;
 }
 
-const projects: Project[] = [
+const projectsBase: ProjectBase[] = [
   {
-    num: '001',
-    title: 'Plataforma SaaS FinTech',
-    desc: 'Módulos de IAM, órdenes, cotizaciones e inventario con enfoque en UX y escalabilidad. Arquitectura de componentes White Label multi-tenant.',
     stack: ['Vue 3', 'Vuetify', 'Pinia', 'Firebase'],
     filename: 'stores/iam.ts',
     liveUrl: '#',
@@ -30,9 +27,6 @@ const projects: Project[] = [
     ].join('<br>'),
   },
   {
-    num: '002',
-    title: 'Gestor Taller — E&amp;E Garage',
-    desc: 'App de gestión: órdenes de servicio, clientes, vehículos y mecánicos. Impresión y exportación PDF con lógica anti-duplicados y control de páginas.',
     stack: ['Vue', 'Vuetify', 'jsPDF', 'html2canvas'],
     filename: 'utils/exportPDF.ts',
     liveUrl: '#',
@@ -49,9 +43,6 @@ const projects: Project[] = [
     ].join('<br>'),
   },
   {
-    num: '003',
-    title: 'Portfolio — Astro',
-    desc: 'Sitio personal con score 97/100 en Lighthouse. Animaciones CSS-only, cursor custom, fuentes non-blocking y arquitectura de componentes.',
     stack: ['Astro', 'TypeScript', 'CSS', 'Formspree'],
     filename: 'scripts/reveal.ts',
     liveUrl: '#',
@@ -68,25 +59,37 @@ const projects: Project[] = [
     ].join('<br>'),
   },
 ];
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = 'es' } = Astro.props;
+const t = getUi(locale);
+const cards = t.projects.cards;
+const demoLabel = locale === 'es' ? 'Ver demo de' : 'View demo of';
+const codeLabel = locale === 'es' ? 'Ver código de' : 'View code for';
 ---
 
 <section class="section" id="proyectos" style="background:var(--bg2)">
   <div class="container">
     <div class="reveal">
-      <p class="eyebrow">// 02 — Proyectos</p>
-      <h2 class="section-title">Trabajo <span>seleccionado</span></h2>
-      <p class="section-sub">Proyectos donde diseño, código y lógica de negocio se unen para crear resultados reales.</p>
+      <p class="eyebrow">{t.projects.eyebrow}</p>
+      <h2 class="section-title">{t.projects.title}<span>{t.projects.titleAccent}</span></h2>
+      <p class="section-sub">{t.projects.sub}</p>
     </div>
 
     <div class="proj-grid">
-      {projects.map((p, i) => (
+      {projectsBase.map((p, i) => {
+        const meta = cards[i];
+        return (
         <article class="proj-card reveal" style={`transition-delay:${i * 100}ms`}>
 
           <div class="proj-header">
-            <span class="proj-num">{p.num}</span>
+            <span class="proj-num">{meta.num}</span>
             <div class="proj-links">
-              <a href={p.liveUrl} class="proj-link" aria-label={`Ver demo de ${p.title}`}>↗ Live</a>
-              <a href={p.githubUrl} class="proj-link" aria-label={`Ver código de ${p.title}`}>GitHub</a>
+              <a href={p.liveUrl} class="proj-link" aria-label={`${demoLabel} ${meta.title}`}>{t.projects.live}</a>
+              <a href={p.githubUrl} class="proj-link" aria-label={`${codeLabel} ${meta.title}`}>{t.projects.github}</a>
             </div>
           </div>
 
@@ -101,17 +104,18 @@ const projects: Project[] = [
           </div>
 
           <div class="proj-body">
-            <h3 class="proj-title">{p.title}</h3>
-            <p class="proj-desc">{p.desc}</p>
+            <h3 class="proj-title">{meta.title}</h3>
+            <p class="proj-desc">{meta.desc}</p>
             <div class="proj-tags">
-              {p.stack.map((t, ti) => (
-                <span class={ti % 2 === 0 ? 'pill' : 'pill blue'}>{t}</span>
+              {p.stack.map((tag, ti) => (
+                <span class={ti % 2 === 0 ? 'pill' : 'pill blue'}>{tag}</span>
               ))}
             </div>
           </div>
 
         </article>
-      ))}
+      );
+      })}
     </div>
   </div>
 </section>
@@ -132,7 +136,7 @@ const projects: Project[] = [
   transition: border-color .3s, transform .3s;
 }
 .proj-card:hover {
-  border-color: rgba(74,242,161,.28);
+  border-color: rgba(79, 140, 255, .28);
   transform: translateY(-5px);
 }
 .proj-card:hover .proj-code-preview {
