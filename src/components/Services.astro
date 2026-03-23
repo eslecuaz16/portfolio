@@ -1,38 +1,46 @@
 ---
 const services = [
   {
-    title: 'Sitios web para negocio',
-    description:
-      'Presencia web profesional: multi-página, responsive y preparada para SEO y analíticas.',
+    num: '01',
+    title: 'Landing pages',
+    desc: 'Páginas de conversión rápidas, bien estructuradas y optimizadas para SEO y Core Web Vitals.',
+    icon: '⚡',
   },
   {
-    title: 'UX y performance',
-    description:
-      'Optimización de experiencia de usuario, tiempos de carga y accesibilidad web.',
+    num: '02',
+    title: 'Sitios web de negocio',
+    desc: 'Presencia digital profesional, multi-sección, responsive y conectada a analíticas.',
+    icon: '🌐',
   },
   {
-    title: 'Gestores Administrativos',
-      description: 'Aplicación diseñada para estructurar y simplificar la gestión administrativa, mejorando visibilidad, control y eficiencia en procesos internos.'
-  }
+    num: '03',
+    title: 'Aplicaciones web',
+    desc: 'Dashboards, gestores y flujos complejos con Vue.js, arquitectura escalable y buena DX.',
+    icon: '🛠',
+  },
+  {
+    num: '04',
+    title: 'UX & Performance',
+    desc: 'Auditoría, optimización de carga, accesibilidad y mejora de experiencia de usuario.',
+    icon: '📊',
+  },
 ];
 ---
-
-<section class="services section" id="servicios">
+<section class="section" id="servicios">
   <div class="container">
-    <div class="section-heading reveal">
-      <span class="eyebrow">Servicios</span>
-      <h2>En qué puedo ayudarte</h2>
-      <p>
-        Desarrollo soluciones web que conectan tu negocio con tus clientes de
-        forma clara y profesional.
-      </p>
+    <div class="reveal">
+      <p class="eyebrow">// 01 — Servicios</p>
+      <h2 class="section-title">En qué <span>puedo ayudarte</span></h2>
+      <p class="section-sub">Soluciones frontend que conectan tu negocio con tus clientes. Sin relleno, sin templates, todo a medida.</p>
     </div>
 
-    <div class="services-grid">
-      {services.map((service, i) => (
-        <article class="service-card reveal" data-delay={i}>
-          <h3>{service.title}</h3>
-          <p>{service.description}</p>
+    <div class="srv-grid">
+      {services.map((s, i) => (
+        <article class="srv-card reveal" style={`transition-delay:${i*80}ms`}>
+          <div class="srv-num" aria-hidden="true">{s.num}</div>
+          <div class="srv-icon" aria-hidden="true">{s.icon}</div>
+          <h3 class="srv-title">{s.title}</h3>
+          <p class="srv-desc">{s.desc}</p>
         </article>
       ))}
     </div>
@@ -40,85 +48,66 @@ const services = [
 </section>
 
 <style>
-  .section-heading {
-    max-width: 640px;
-    margin-bottom: 2.5rem;
-  }
+.srv-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1.25rem;
+}
+.srv-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 2rem 1.75rem;
+  position: relative;
+  overflow: hidden;
+  transition: border-color .3s, transform .3s;
+}
+.srv-card:hover { border-color: rgba(74,242,161,.25); transform: translateY(-4px); }
+.srv-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(74,242,161,.04) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity .3s;
+}
+.srv-card:hover::after { opacity: 1; }
 
-  .eyebrow {
-    display: block;
-    font-size: 0.8125rem;
-    color: var(--color-text-muted);
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    margin-bottom: 0.5rem;
-  }
-
-  .section-heading h2 {
-    font-size: clamp(1.75rem, 3vw, 2.25rem);
-    font-weight: 600;
-    margin: 0 0 0.75rem;
-    letter-spacing: -0.02em;
-  }
-
-  .section-heading p {
-    font-size: 1rem;
-    line-height: 1.6;
-    color: var(--color-text-muted);
-    margin: 0;
-  }
-
-  .services-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1rem;
-  }
-
-  .service-card {
-    padding: 1.5rem;
-    border-radius: var(--radius-lg);
-    border: 1px solid var(--color-border);
-    background: rgba(255, 255, 255, 0.02);
-    transition: transform 0.3s ease, border-color 0.3s ease, background 0.3s ease;
-  }
-
-  .service-card:hover {
-    transform: translateY(-4px);
-    border-color: var(--color-border-hover);
-    background: rgba(255, 255, 255, 0.04);
-  }
-
-  .service-card h3 {
-    font-size: 1.125rem;
-    font-weight: 600;
-    margin: 0 0 0.5rem;
-  }
-
-  .service-card p {
-    font-size: 0.9375rem;
-    line-height: 1.6;
-    color: var(--color-text-muted);
-    margin: 0;
-  }
-
-  .service-card.reveal[data-delay='1'] { transition-delay: 80ms; }
-  .service-card.reveal[data-delay='2'] { transition-delay: 160ms; }
-  .service-card.reveal[data-delay='3'] { transition-delay: 240ms; }
-
-  @media (min-width: 768px) {
-    .services-grid {
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1.25rem;
-    }
-
-    .service-card {
-      padding: 1.75rem;
-    }
-  }
-
-  @media (min-width: 1024px) {
-    .services-grid {
-      grid-template-columns: repeat(4, 1fr);
-    }
-  }
+.srv-num {
+  font-family: var(--mono);
+  font-size: .65rem;
+  color: var(--accent);
+  letter-spacing: .15em;
+  opacity: .5;
+  margin-bottom: 1.25rem;
+}
+.srv-icon {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  line-height: 1;
+}
+.srv-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: -.02em;
+  margin-bottom: .6rem;
+}
+.srv-desc {
+  font-family: var(--mono);
+  font-size: .75rem;
+  color: var(--muted);
+  line-height: 1.8;
+}
+/* ghost num bg */
+.srv-card::before {
+  content: attr(data-n);
+  position: absolute;
+  right: 1rem; bottom: .5rem;
+  font-size: 4.5rem;
+  font-weight: 800;
+  color: rgba(255,255,255,.025);
+  pointer-events: none;
+  font-family: var(--sans);
+  line-height: 1;
+}
 </style>

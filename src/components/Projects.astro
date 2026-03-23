@@ -1,65 +1,115 @@
 ---
-const projects = [
+interface Project {
+  num: string;
+  title: string;
+  desc: string;
+  stack: string[];
+  codeHtml: string;
+  filename: string;
+  liveUrl: string;
+  githubUrl: string;
+}
+
+const projects: Project[] = [
   {
+    num: '001',
     title: 'Plataforma SaaS FinTech',
-    description:
-      'Módulos de IAM, órdenes, cotizaciones e inventario con enfoque en experiencia de usuario y escalabilidad.',
-    stack: [
-      { name: 'Vue 3', slug: 'vue' },
-      { name: 'Vuetify', slug: 'vuetify' },
-      { name: 'Pinia', slug: 'pinia' },
-      { name: 'Firebase', slug: 'firebase' },
-    ],
-    href: '/projects/saas-fintech',
+    desc: 'Módulos de IAM, órdenes, cotizaciones e inventario con enfoque en UX y escalabilidad. Arquitectura de componentes White Label multi-tenant.',
+    stack: ['Vue 3', 'Vuetify', 'Pinia', 'Firebase'],
+    filename: 'stores/iam.ts',
+    liveUrl: '#',
+    githubUrl: '#',
+    codeHtml: [
+      '<span class="kw">const</span><span class="prop"> useIAM</span> <span class="op">=</span> <span class="fn">defineStore</span><span class="op">(</span>',
+      '<span class="str">&nbsp;&nbsp;\'iam\'</span><span class="op">,</span> <span class="cm">// Pinia store</span>',
+      '<span class="op">&nbsp;&nbsp;() =&gt; ({</span>',
+      '<span class="prop">&nbsp;&nbsp;&nbsp;&nbsp;user</span><span class="op">:</span> <span class="fn">ref</span><span class="op">&lt;</span><span class="tp">User | null</span><span class="op">&gt;(</span><span class="num">null</span><span class="op">),</span>',
+      '<span class="prop">&nbsp;&nbsp;&nbsp;&nbsp;perms</span><span class="op">:</span> <span class="fn">ref</span><span class="op">&lt;</span><span class="tp">string[]</span><span class="op">&gt;([])</span>',
+      '<span class="op">&nbsp;&nbsp;})</span>',
+      '<span class="op">)</span>',
+    ].join('<br>'),
   },
   {
-    title: 'Gestor Taller — E&E Garage',
-    description:
-      'Aplicación de operación para taller: gestión de órdenes de servicio, clientes, vehículos, servicios y refacciones con control de costos y seguimiento mecánico. Incluye impresión e exportación a PDF con lógica para evitar duplicados, cortes y páginas en blanco.',
-    stack: [
-      { name: 'Vue', slug: 'vue' },
-      { name: 'Vuetify', slug: 'vuetify' },
-      { name: 'jsPDF', slug: 'jspdf' },
-      { name: 'html2canvas', slug: 'html2canvas' },
-    ],
-    href: '/projects/gestor-taller',
+    num: '002',
+    title: 'Gestor Taller — E&amp;E Garage',
+    desc: 'App de gestión: órdenes de servicio, clientes, vehículos y mecánicos. Impresión y exportación PDF con lógica anti-duplicados y control de páginas.',
+    stack: ['Vue', 'Vuetify', 'jsPDF', 'html2canvas'],
+    filename: 'utils/exportPDF.ts',
+    liveUrl: '#',
+    githubUrl: '#',
+    codeHtml: [
+      '<span class="kw">async function</span><span class="fn"> exportPDF</span><span class="op">() {</span>',
+      '<span class="kw">&nbsp;&nbsp;const</span><span class="prop"> doc</span> <span class="op">=</span> <span class="kw">new</span> <span class="fn">jsPDF</span><span class="op">()</span>',
+      '<span class="kw">&nbsp;&nbsp;await</span> <span class="fn">html2canvas</span><span class="op">(</span><span class="prop">el</span><span class="op">)</span>',
+      '<span class="cm">&nbsp;&nbsp;// anti-duplicate page logic</span>',
+      '<span class="prop">&nbsp;&nbsp;doc</span><span class="op">.</span><span class="fn">save</span><span class="op">(</span>',
+      '<span class="str">&nbsp;&nbsp;&nbsp;&nbsp;`orden-$&#123;id&#125;.pdf`</span>',
+      '<span class="op">&nbsp;&nbsp;)</span>',
+      '<span class="op">}</span>',
+    ].join('<br>'),
   },
   {
-    title: 'Landing de servicios',
-    description:
-      'Sitio enfocado en conversión para presentar servicios y captar leads.',
-    stack: [
-      { name: 'Astro', slug: 'astro' },
-      { name: 'Tailwind', slug: 'tailwind' },
-    ],
-    href: '/projects/landing-servicios',
+    num: '003',
+    title: 'Portfolio — Astro',
+    desc: 'Sitio personal con score 97/100 en Lighthouse. Animaciones CSS-only, cursor custom, fuentes non-blocking y arquitectura de componentes.',
+    stack: ['Astro', 'TypeScript', 'CSS', 'Formspree'],
+    filename: 'scripts/reveal.ts',
+    liveUrl: '#',
+    githubUrl: 'https://github.com/eslecuaz16/portfolio',
+    codeHtml: [
+      '<span class="kw">export function</span><span class="fn"> initReveal</span><span class="op">() {</span>',
+      '<span class="kw">&nbsp;&nbsp;const</span><span class="prop"> obs</span> <span class="op">=</span> <span class="kw">new</span>',
+      '<span class="fn">&nbsp;&nbsp;&nbsp;&nbsp;IntersectionObserver</span><span class="op">(</span>',
+      '<span class="op">&nbsp;&nbsp;&nbsp;&nbsp;([</span><span class="prop">entry</span><span class="op">]) =&gt; {</span>',
+      '<span class="kw">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if</span> <span class="op">(</span><span class="prop">entry</span><span class="op">.</span><span class="prop">isIntersecting</span><span class="op">)</span>',
+      '<span class="prop">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;el</span><span class="op">.</span><span class="fn">classList</span><span class="op">.</span><span class="fn">add</span><span class="op">(</span><span class="str">\'visible\'</span><span class="op">)</span>',
+      '<span class="op">&nbsp;&nbsp;})</span>',
+      '<span class="op">}</span>',
+    ].join('<br>'),
   },
 ];
 ---
 
-<section class="projects section" id="proyectos">
+<section class="section" id="proyectos" style="background:var(--bg2)">
   <div class="container">
-    <div class="section-heading reveal">
-      <span class="eyebrow">Portafolio</span>
-      <h2>Proyectos destacados</h2>
-      <p>
-        Una selección de proyectos donde combiné producto, diseño y desarrollo
-        para construir experiencias útiles y modernas.
-      </p>
+    <div class="reveal">
+      <p class="eyebrow">// 02 — Proyectos</p>
+      <h2 class="section-title">Trabajo <span>seleccionado</span></h2>
+      <p class="section-sub">Proyectos donde diseño, código y lógica de negocio se unen para crear resultados reales.</p>
     </div>
 
-    <div class="projects-grid">
-      {projects.map((project, i) => (
-        <article class="project-card reveal" data-delay={i}>
-          <div class="project-card-content">
-            <h3>{project.title}</h3>
-            <p class="project-description">{project.description}</p>
-            <ul class="stack">
-              {project.stack.map((item) => (
-                <li class={`tech-chip tech-chip--${item.slug}`}>{item.name}</li>
-              ))}
-            </ul>
+    <div class="proj-grid">
+      {projects.map((p, i) => (
+        <article class="proj-card reveal" style={`transition-delay:${i * 100}ms`}>
+
+          <div class="proj-header">
+            <span class="proj-num">{p.num}</span>
+            <div class="proj-links">
+              <a href={p.liveUrl} class="proj-link" aria-label={`Ver demo de ${p.title}`}>↗ Live</a>
+              <a href={p.githubUrl} class="proj-link" aria-label={`Ver código de ${p.title}`}>GitHub</a>
+            </div>
           </div>
+
+          <div class="proj-code-preview">
+            <div class="code-bar" style="padding:.45rem .85rem">
+              <span class="dot dot-r" style="width:8px;height:8px"></span>
+              <span class="dot dot-y" style="width:8px;height:8px"></span>
+              <span class="dot dot-g" style="width:8px;height:8px"></span>
+              <span class="code-fname">{p.filename}</span>
+            </div>
+            <div class="code-body" style="padding:.9rem 1.1rem;font-size:.69rem" set:html={p.codeHtml} />
+          </div>
+
+          <div class="proj-body">
+            <h3 class="proj-title">{p.title}</h3>
+            <p class="proj-desc">{p.desc}</p>
+            <div class="proj-tags">
+              {p.stack.map((t, ti) => (
+                <span class={ti % 2 === 0 ? 'pill' : 'pill blue'}>{t}</span>
+              ))}
+            </div>
+          </div>
+
         </article>
       ))}
     </div>
@@ -67,197 +117,78 @@ const projects = [
 </section>
 
 <style>
-  .projects .section-heading {
-    max-width: 720px;
-    margin-bottom: 2.5rem;
-  }
-
-  .projects .eyebrow {
-    display: block;
-    font-size: 0.8125rem;
-    color: var(--color-text-muted);
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    margin-bottom: 0.5rem;
-  }
-
-  .projects .section-heading h2 {
-    font-size: clamp(1.75rem, 3vw, 2.25rem);
-    font-weight: 600;
-    margin: 0 0 0.75rem;
-    letter-spacing: -0.02em;
-  }
-
-  .projects .section-heading p {
-    font-size: 1rem;
-    line-height: 1.6;
-    color: var(--color-text-muted);
-    margin: 0;
-  }
-
-  .projects-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1.25rem;
-  }
-
-  .project-card {
-    padding: 1.5rem;
-    border-radius: var(--radius-lg);
-    border: 1px solid var(--color-border);
-    background: rgba(255, 255, 255, 0.02);
-    transition: transform 0.3s ease, border-color 0.3s ease;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-
-  .project-card:hover {
-    transform: translateY(-4px);
-    border-color: var(--color-border-hover);
-  }
-
-  .project-card-content {
-    flex: 1;
-  }
-
-  .project-card h3 {
-    font-size: 1.25rem;
-    font-weight: 600;
-    margin: 0 0 0.5rem;
-  }
-
-  .project-description {
-    font-size: 0.9375rem;
-    line-height: 1.6;
-    color: var(--color-text-muted);
-    margin: 0 0 1rem;
-  }
-
-  .stack {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    padding: 0;
-    margin: 0;
-    list-style: none;
-  }
-
-  .tech-chip {
-    padding: 0.3rem 0.65rem;
-    border-radius: 999px;
-    font-size: 0.8125rem;
-    color: var(--color-text-muted);
-    background: rgba(255, 255, 255, 0.06);
-    border: 1px solid transparent;
-    transition: transform 0.2s ease, color 0.2s ease, background 0.2s ease,
-      border-color 0.2s ease, box-shadow 0.2s ease;
-  }
-
-  .tech-chip:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  }
-
-  /* Vue - verde */
-  .tech-chip--vue:hover {
-    color: #b8e8c4;
-    background: rgba(52, 199, 89, 0.12);
-    border-color: rgba(52, 199, 89, 0.25);
-  }
-
-  /* Vuetify - azul */
-  .tech-chip--vuetify:hover {
-    color: #93c5fd;
-    background: rgba(59, 130, 246, 0.12);
-    border-color: rgba(59, 130, 246, 0.25);
-  }
-
-  /* Pinia - amarillo */
-  .tech-chip--pinia:hover {
-    color: #fef08a;
-    background: rgba(234, 179, 8, 0.12);
-    border-color: rgba(234, 179, 8, 0.25);
-  }
-
-  /* Firebase - ámbar */
-  .tech-chip--firebase:hover {
-    color: #fde68a;
-    background: rgba(245, 158, 11, 0.12);
-    border-color: rgba(245, 158, 11, 0.25);
-  }
-
-  /* Firestore - naranja */
-  .tech-chip--firestore:hover {
-    color: #fed7aa;
-    background: rgba(249, 115, 22, 0.12);
-    border-color: rgba(249, 115, 22, 0.25);
-  }
-
-  /* Astro - morado */
-  .tech-chip--astro:hover {
-    color: #d8b4fe;
-    background: rgba(168, 85, 247, 0.12);
-    border-color: rgba(168, 85, 247, 0.25);
-  }
-
-  /* Tailwind - cyan */
-  .tech-chip--tailwind:hover {
-    color: #a5f3fc;
-    background: rgba(6, 182, 212, 0.12);
-    border-color: rgba(6, 182, 212, 0.25);
-  }
-
-  /* jsPDF - rojo suave */
-  .tech-chip--jspdf:hover {
-    color: #fecaca;
-    background: rgba(239, 68, 68, 0.12);
-    border-color: rgba(239, 68, 68, 0.25);
-  }
-
-  /* html2canvas - naranja suave */
-  .tech-chip--html2canvas:hover {
-    color: #fed7aa;
-    background: rgba(251, 146, 60, 0.12);
-    border-color: rgba(251, 146, 60, 0.25);
-  }
-
-  .project-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 0.9375rem;
-    font-weight: 500;
-    color: var(--color-text);
-    text-decoration: none;
-    transition: gap 0.2s ease, color 0.2s ease;
-  }
-
-  .project-link:hover {
-    gap: 0.75rem;
-    color: var(--color-accent);
-  }
-
-  .project-link .arrow {
-    font-size: 1.125rem;
-    line-height: 1;
-  }
-
-  .project-card.reveal[data-delay='1'] {
-    transition-delay: 100ms;
-  }
-  .project-card.reveal[data-delay='2'] {
-    transition-delay: 200ms;
-  }
-
-  @media (min-width: 768px) {
-    .projects-grid {
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.5rem;
-    }
-
-    .project-card {
-      padding: 1.75rem;
-    }
-  }
+.proj-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.5rem;
+}
+.proj-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: border-color .3s, transform .3s;
+}
+.proj-card:hover {
+  border-color: rgba(74,242,161,.28);
+  transform: translateY(-5px);
+}
+.proj-card:hover .proj-code-preview {
+  opacity: 1;
+  transform: translateY(0);
+}
+.proj-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.4rem 1.6rem 1rem;
+}
+.proj-num {
+  font-family: var(--mono);
+  font-size: .62rem;
+  color: var(--accent);
+  opacity: .5;
+  letter-spacing: .15em;
+}
+.proj-links { display: flex; gap: .75rem; }
+.proj-link {
+  font-family: var(--mono);
+  font-size: .62rem;
+  color: var(--muted);
+  text-decoration: none;
+  letter-spacing: .08em;
+  transition: color .2s;
+}
+.proj-link:hover { color: var(--accent); }
+.proj-code-preview {
+  margin: 0 1.25rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  opacity: .65;
+  transform: translateY(4px);
+  transition: opacity .3s, transform .3s;
+}
+.proj-body {
+  padding: 1.25rem 1.6rem 1.6rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: .75rem;
+}
+.proj-title {
+  font-size: 1.12rem;
+  font-weight: 700;
+  letter-spacing: -.02em;
+}
+.proj-desc {
+  font-family: var(--mono);
+  font-size: .74rem;
+  color: var(--muted);
+  line-height: 1.75;
+  flex: 1;
+}
+.proj-tags { display: flex; flex-wrap: wrap; gap: .4rem; }
 </style>

@@ -4,67 +4,65 @@ const experiences = [
     company: 'minu',
     role: 'Front End Leader',
     period: 'feb. 2023 — actualidad',
-    location: 'Ciudad de México · Híbrido',
-    description:
-      'Lidero iniciativas de desarrollo frontend para nuevas funcionalidades en web y apps móviles, construyendo experiencias escalables con Vue.js en colaboración cercana con producto y diseño.',
+    location: 'CDMX · Híbrido',
+    desc: 'Liderando iniciativas frontend para nuevas funcionalidades web y mobile. Arquitectura de componentes Vue.js en colaboración con producto y diseño.',
     highlights: [
-      'Arquitectura de componentes reutilizables para mejorar mantenibilidad y escalabilidad.',
-      'Implementación de interfaces alineadas a lineamientos White Label.',
-      'Optimización de flujos críticos y corrección de bugs con foco en experiencia de usuario.',
-      'Participación en definición y mejora de historias de usuario junto a producto.',
-      'Integración de herramientas externas como SendGrid, CleverTap y Capacitor.js.',
-      'Trabajo colaborativo bajo metodología Scrum.',
+      'Arquitectura de componentes reutilizables con Vue 3 + Pinia',
+      'Implementación de interfaces White Label multi-tenant',
+      'Integración de SendGrid, CleverTap y Capacitor.js',
+      'Optimización de flujos críticos y performance (Core Web Vitals)',
+      'Metodología Scrum, ceremonies y sprint planning',
     ],
+    badge: 'actual',
   },
   {
     company: 'Aloux',
     role: 'Desarrollador Front-End',
     period: 'oct. 2021 — ene. 2023',
-    location: 'México',
-    description:
-      'Desarrollo y ejecuto soluciones frontend personalizadas para distintos clientes, desde la definición técnica hasta la implementación y entrega final.',
+    location: 'México · Remoto',
+    desc: 'Desarrollo y entrega de soluciones frontend personalizadas para clientes: desde definición técnica hasta implementación y QA.',
     highlights: [
-      'Arquitectura e implementación de aplicaciones web con Vue.js, Nuxt.js y Vuetify.',
-      'Desarrollo de interfaces centradas en el usuario, priorizando usabilidad, rendimiento y escalabilidad.',
-      'Integración de servicios y lógica de negocio con JavaScript y Node.js.',
-      'Gestión de proyectos, planeación y seguimiento de entregables.',
-      'Comunicación constante con clientes para traducir necesidades de negocio en soluciones técnicas.',
+      'Aplicaciones web con Vue.js, Nuxt.js y Vuetify',
+      'Interfaces centradas en UX, accesibilidad y rendimiento',
+      'Integración backend con Node.js y Firebase',
+      'Comunicación directa con clientes para traducir negocio en código',
     ],
+    badge: null,
   },
 ];
 ---
-
-<section class="experience section" id="experiencia">
+<section class="section" id="experiencia" style="background:var(--bg2)">
   <div class="container">
-    <div class="section-heading reveal">
-      <span class="eyebrow">Experiencia laboral</span>
-      <h2>Trayectoria en productos digitales</h2>
-      <p>
-        Experiencia liderando y desarrollando interfaces para productos reales,
-        desde fintech hasta soluciones a medida para clientes.
-      </p>
+    <div class="reveal">
+      <p class="eyebrow">// 04 — Experiencia</p>
+      <h2 class="section-title">Trayectoria <span>profesional</span></h2>
+      <p class="section-sub">Experiencia construyendo productos reales en equipos reales.</p>
     </div>
 
-    <div class="experience-timeline">
-      {experiences.map((exp) => (
-        <article class="experience-item reveal">
-          <div class="experience-marker" aria-hidden="true" />
-          <div class="experience-card">
-            <header class="experience-header">
+    <div class="exp-list">
+      {experiences.map((e, i) => (
+        <article class="exp-item reveal" style={`transition-delay:${i*100}ms`}>
+          <div class="exp-marker" aria-hidden="true">
+            <span class="exp-dot"></span>
+            {i < experiences.length-1 && <span class="exp-line"></span>}
+          </div>
+          <div class="exp-card">
+            <div class="exp-top">
               <div>
-                <h3>{exp.role}</h3>
-                <p class="experience-company">{exp.company}</p>
+                <h3 class="exp-role">{e.role}</h3>
+                <p class="exp-company">
+                  {e.company}
+                  {e.badge && <span class="exp-badge">{e.badge}</span>}
+                </p>
               </div>
-              <div class="experience-meta">
-                <span>{exp.period}</span>
-                <span>{exp.location}</span>
+              <div class="exp-meta">
+                <span>{e.period}</span>
+                <span>{e.location}</span>
               </div>
-            </header>
-            <p class="experience-description">{exp.description}</p>
-            <ul class="experience-highlights">
-              {exp.highlights.map((item) => (
-                <li>{item}</li>
-              ))}
+            </div>
+            <p class="exp-desc">{e.desc}</p>
+            <ul class="exp-highlights">
+              {e.highlights.map(h => <li>{h}</li>)}
             </ul>
           </div>
         </article>
@@ -74,134 +72,117 @@ const experiences = [
 </section>
 
 <style>
-  .experience-timeline {
-    position: relative;
-    margin-top: 2.5rem;
-    display: flex;
-    flex-direction: column;
-    gap: 1.75rem;
-  }
+.exp-list { display: flex; flex-direction: column; gap: 0; margin-top: .5rem; }
 
-  .experience-item {
-    position: relative;
-    display: grid;
-    grid-template-columns: auto 1fr;
-    column-gap: 1.25rem;
-    align-items: flex-start;
-  }
+.exp-item {
+  display: grid;
+  grid-template-columns: 28px 1fr;
+  column-gap: 1.5rem;
+  align-items: stretch;
+}
+.exp-marker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 1.75rem;
+}
+.exp-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 2px solid var(--bg2);
+  box-shadow: 0 0 0 2px rgba(74,242,161,.3);
+  flex-shrink: 0;
+}
+.exp-line {
+  width: 1px;
+  flex: 1;
+  min-height: 2rem;
+  background: linear-gradient(to bottom, rgba(74,242,161,.2), rgba(74,242,161,.03));
+  margin-top: 6px;
+}
 
-  .experience-marker {
-    width: 12px;
-    height: 12px;
-    border-radius: 999px;
-    background: var(--color-text);
-    position: relative;
-    margin-top: 0.75rem;
-  }
+.exp-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.6rem 1.75rem;
+  margin-bottom: 1.5rem;
+  transition: border-color .3s;
+}
+.exp-card:hover { border-color: rgba(74,242,161,.2); }
 
-  .experience-marker::after {
-    content: '';
-    position: absolute;
-    top: 12px;
-    left: 50%;
-    width: 1px;
-    height: calc(100% + 1.5rem);
-    transform: translateX(-50%);
-    background: linear-gradient(
-      to bottom,
-      rgba(255, 255, 255, 0.14),
-      rgba(255, 255, 255, 0.02)
-    );
-  }
+.exp-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: .875rem;
+}
+.exp-role    { font-size: 1.05rem; font-weight: 700; letter-spacing: -.02em; margin-bottom: .15rem; }
+.exp-company {
+  font-family: var(--mono);
+  font-size: .78rem;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+.exp-badge {
+  font-size: .58rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  padding: .18rem .55rem;
+  background: var(--accent-dim);
+  color: var(--accent);
+  border: 1px solid rgba(74,242,161,.2);
+  border-radius: 3px;
+}
+.exp-meta {
+  display: flex;
+  flex-direction: column;
+  gap: .2rem;
+  font-family: var(--mono);
+  font-size: .7rem;
+  color: var(--muted);
+  text-align: right;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.exp-desc {
+  font-family: var(--mono);
+  font-size: .78rem;
+  color: var(--muted);
+  line-height: 1.8;
+  margin-bottom: 1rem;
+}
+.exp-highlights {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: .4rem;
+  padding-left: .5rem;
+  border-left: 1px solid rgba(74,242,161,.12);
+}
+.exp-highlights li {
+  font-family: var(--mono);
+  font-size: .73rem;
+  color: var(--muted);
+  padding-left: .75rem;
+  position: relative;
+}
+.exp-highlights li::before {
+  content: '→';
+  position: absolute;
+  left: -.5rem;
+  color: var(--accent);
+  opacity: .5;
+}
 
-  .experience-item:last-child .experience-marker::after {
-    height: 0;
-  }
-
-  .experience-card {
-    border-radius: var(--radius-lg);
-    border: 1px solid var(--color-border);
-    background: rgba(255, 255, 255, 0.02);
-    padding: 1.5rem 1.5rem 1.35rem;
-  }
-
-  .experience-header {
-    display: flex;
-    justify-content: space-between;
-    gap: 1.25rem;
-    align-items: flex-start;
-    margin-bottom: 0.75rem;
-  }
-
-  .experience-header h3 {
-    font-size: 1.0625rem;
-    font-weight: 600;
-    margin: 0 0 0.15rem;
-  }
-
-  .experience-company {
-    margin: 0;
-    font-size: 0.92rem;
-    color: var(--color-text-muted);
-  }
-
-  .experience-meta {
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-    font-size: 0.8125rem;
-    color: var(--color-text-muted);
-    text-align: right;
-    white-space: nowrap;
-  }
-
-  .experience-description {
-    font-size: 0.9375rem;
-    color: var(--color-text-muted);
-    margin: 0 0 0.75rem;
-  }
-
-  .experience-highlights {
-    margin: 0;
-    padding-left: 1.1rem;
-    list-style: disc;
-    display: flex;
-    flex-direction: column;
-    gap: 0.3rem;
-  }
-
-  .experience-highlights li {
-    font-size: 0.875rem;
-    color: var(--color-text-muted);
-  }
-
-  @media (max-width: 640px) {
-    .experience-item {
-      grid-template-columns: 1fr;
-      column-gap: 0;
-    }
-
-    .experience-marker {
-      display: none;
-    }
-
-    .experience-header {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 0.4rem;
-    }
-
-    .experience-meta {
-      flex-direction: row;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      text-align: left;
-      white-space: normal;
-    }
-
-    .experience-card {
-      padding: 1.25rem 1.1rem 1.1rem;
-    }
-  }
+@media (max-width: 640px) {
+  .exp-item { grid-template-columns: 1fr; }
+  .exp-marker { display: none; }
+  .exp-top { flex-direction: column; }
+  .exp-meta { text-align: left; flex-direction: row; flex-wrap: wrap; gap: .5rem; }
+}
 </style>
-

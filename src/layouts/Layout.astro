@@ -1,25 +1,69 @@
 ---
-import { ClientRouter } from "astro:transitions";
-import "../styles/global.css";
-import NavBar from "../components/NavBar.astro";
-import WhatsAppFloat from "../components/WhatsAppFloat.astro";
+import '../styles/global.css';
+import NavBar from '../components/NavBar.astro';
+import WhatsAppFloat from '../components/WhatsAppFloat.astro';
 ---
-
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Desarrollador frontend freelance. Landing pages, sitios web y experiencias digitales que convierten visitas en clientes." />
-    <title>Portfolio — Frontend Developer · Freelance</title>
-    <ClientRouter />
-  </head>
-  <body>
-    <NavBar />
-    <slot />
-    <WhatsAppFloat />
-    <script>
-      import { initReveal } from '../scripts/reveal';
-      initReveal();
-    </script>
-  </body>
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Ing. Esteban Lecuona — Frontend Developer. Interfaces web rápidas, accesibles y orientadas a resultado. Vue.js, Astro, TypeScript."/>
+  <meta name="robots" content="index, follow"/>
+  <meta property="og:title" content="Esteban Lecuona — Frontend Developer"/>
+  <meta property="og:description" content="Sitios web y apps que convierten. Especialista en Vue.js, Nuxt, TypeScript y Astro."/>
+  <meta property="og:type" content="website"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <title>Esteban Lecuona — Frontend Developer</title>
+
+  <!-- Preload fonts non-blocking -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="preload" as="style"
+    href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Syne:wght@400;700;800&display=swap"/>
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Syne:wght@400;700;800&display=swap"
+    media="print" onload="this.media='all'"/>
+  <noscript>
+    <link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Syne:wght@400;700;800&display=swap"/>
+  </noscript>
+</head>
+<body>
+  <!-- Custom cursor -->
+  <div id="dt-cursor" aria-hidden="true"></div>
+  <div id="dt-ring"   aria-hidden="true"></div>
+
+  <NavBar/>
+  <main>
+    <slot/>
+  </main>
+  <WhatsAppFloat/>
+
+  <script>
+    // ── Cursor (GPU transform, rAF loop) ──
+    var cur  = document.getElementById('dt-cursor');
+    var ring = document.getElementById('dt-ring');
+    var mx=-100,my=-100,rx=-100,ry=-100,hovering=false;
+    function loop() {
+      rx += (mx-rx)*.16; ry += (my-ry)*.16;
+      if (cur)  cur.style.transform  = 'translate(calc('+mx+'px - 50%), calc('+my+'px - 50%))' + (hovering ? ' scale(2)' : '');
+      if (ring) ring.style.transform = 'translate(calc('+rx+'px - 50%), calc('+ry+'px - 50%))' + (hovering ? ' scale(1.5)' : '');
+      requestAnimationFrame(loop);
+    }
+    requestAnimationFrame(loop);
+    document.addEventListener('mousemove', function(e) { mx=e.clientX; my=e.clientY; }, {passive:true});
+    document.querySelectorAll('a,button').forEach(function(el) {
+      el.addEventListener('mouseenter', function() { hovering=true;  document.body.classList.add('cursor-hover'); });
+      el.addEventListener('mouseleave', function() { hovering=false; document.body.classList.remove('cursor-hover'); });
+    });
+
+    // ── Scroll reveal ──
+    var obs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); }
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(function(el) { obs.observe(el); });
+  </script>
+</body>
 </html>

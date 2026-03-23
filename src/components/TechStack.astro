@@ -1,211 +1,155 @@
 ---
-import vueIcon from '../assets/tech/vue.svg?raw';
-import nuxtIcon from '../assets/tech/nuxt.svg?raw';
-import javascriptIcon from '../assets/tech/javascript.svg?raw';
-import typescriptIcon from '../assets/tech/typescript.svg?raw';
-import astroIcon from '../assets/tech/astro.svg?raw';
-import tailwindIcon from '../assets/tech/tailwind.svg?raw';
-import vuetifyIcon from '../assets/tech/vuetify.svg?raw';
-import piniaIcon from '../assets/tech/pinia.svg?raw';
-import firebaseIcon from '../assets/tech/firebase.svg?raw';
-import nodeIcon from '../assets/tech/node.svg?raw';
-import gitIcon from '../assets/tech/git.svg?raw';
-import html5Icon from '../assets/tech/html5.svg?raw';
-import css3Icon from '../assets/tech/css3.svg?raw';
-
-const iconMap: Record<string, string> = {
-  vue: vueIcon,
-  nuxt: nuxtIcon,
-  javascript: javascriptIcon,
-  typescript: typescriptIcon,
-  astro: astroIcon,
-  tailwind: tailwindIcon,
-  vuetify: vuetifyIcon,
-  pinia: piniaIcon,
-  firebase: firebaseIcon,
-  node: nodeIcon,
-  git: gitIcon,
-  html5: html5Icon,
-  css3: css3Icon,
-};
-
-const techs = [
-  { name: 'Vue', slug: 'vue' },
-  { name: 'Nuxt', slug: 'nuxt' },
-  { name: 'JavaScript', slug: 'javascript' },
-  { name: 'TypeScript', slug: 'typescript' },
-  { name: 'Astro', slug: 'astro' },
-  { name: 'Tailwind', slug: 'tailwind' },
-  { name: 'Vuetify', slug: 'vuetify' },
-  { name: 'Pinia', slug: 'pinia' },
-  { name: 'Firebase', slug: 'firebase' },
-  { name: 'Node.js', slug: 'node' },
-  { name: 'Git', slug: 'git' },
-  { name: 'HTML5', slug: 'html5' },
-  { name: 'CSS3', slug: 'css3' },
+const skills = [
+  { name: 'Vue 3 / Nuxt',    pct: 92, color: 'green' },
+  { name: 'TypeScript',       pct: 85, color: 'blue'  },
+  { name: 'Astro',            pct: 88, color: 'green' },
+  { name: 'TailwindCSS',      pct: 90, color: 'blue'  },
+  { name: 'CSS / SCSS',       pct: 94, color: 'green' },
+  { name: 'Vuetify',          pct: 88, color: 'blue'  },
+  { name: 'Pinia / Vuex',     pct: 86, color: 'green' },
+  { name: 'Firebase',         pct: 80, color: 'blue'  },
+  { name: 'Git / GitHub',     pct: 91, color: 'green' },
+  { name: 'Figma',            pct: 78, color: 'blue'  },
 ];
 ---
 
-<section class="techstack section" id="tecnologias">
+<section class="section" id="tecnologias">
   <div class="container">
-    <div class="techstack-heading reveal">
-      <span class="eyebrow">Stack</span>
-      <h2>Tecnologías con las que trabajo</h2>
-      <p>
-        Herramientas y lenguajes que uso para construir interfaces modernas,
-        mantenibles y escalables.
-      </p>
+    <div class="reveal">
+      <p class="eyebrow">// 03 — Stack</p>
+      <h2 class="section-title">Tecnologías <span>que domino</span></h2>
+      <p class="section-sub">Herramientas con las que construyo a diario. Sin teoría — experiencia real en proyectos de producción.</p>
     </div>
 
-    <ul class="techstack-grid">
-      {techs.map((tech, i) => (
-        <li class={`techstack-item reveal techstack-item--${tech.slug}`} data-delay={i}>
-          <span class="techstack-logo" set:html={iconMap[tech.slug]} />
-          <span class="techstack-name">{tech.name}</span>
-        </li>
-      ))}
-    </ul>
+    <div class="stack-layout">
+      <!-- BARS -->
+      <div class="stack-bars reveal" style="transition-delay:.1s">
+        {skills.map((s, i) => (
+          <div class="skill-row" style={`transition-delay:${i*60}ms`}>
+            <div class="skill-meta">
+              <span class="skill-name">{s.name}</span>
+              <span class="skill-pct">{s.pct}%</span>
+            </div>
+            <div class="skill-track">
+              <div
+                class={`skill-fill skill-fill--${s.color}`}
+                data-w={s.pct}
+                role="progressbar"
+                aria-valuenow={s.pct}
+                aria-valuemin={0}
+                aria-valuemax={100}
+                aria-label={`${s.name}: ${s.pct}%`}
+              ></div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <!-- LIVE CODE -->
+      <div class="stack-code reveal" style="transition-delay:.15s">
+        <div class="code-window">
+          <div class="code-bar">
+            <span class="dot dot-r"></span>
+            <span class="dot dot-y"></span>
+            <span class="dot dot-g"></span>
+            <span class="code-fname">composables/useReveal.ts</span>
+            <span class="live-badge">● live</span>
+          </div>
+          <div class="code-body">
+<span class="cm">// Custom composable — Vue 3</span><br>
+<span class="kw">import</span> <span class="op">{</span> <span class="fn">ref</span><span class="op">,</span> <span class="fn">onMounted</span> <span class="op">}</span> <span class="kw">from</span> <span class="str">'vue'</span><br>
+<br>
+<span class="kw">export function</span> <span class="fn">useReveal</span><span class="op">&lt;</span><br>
+&nbsp;&nbsp;<span class="tp">T</span> <span class="kw">extends</span> <span class="tp">HTMLElement</span><br>
+<span class="op">&gt;() {</span><br>
+&nbsp;&nbsp;<span class="kw">const</span> <span class="prop">el</span>  <span class="op">=</span> <span class="fn">ref</span><span class="op">&lt;</span><span class="tp">T | null</span><span class="op">&gt;(</span><span class="kw">null</span><span class="op">)</span><br>
+&nbsp;&nbsp;<span class="kw">const</span> <span class="prop">vis</span> <span class="op">=</span> <span class="fn">ref</span><span class="op">(</span><span class="kw">false</span><span class="op">)</span><br>
+<br>
+&nbsp;&nbsp;<span class="fn">onMounted</span><span class="op">(() => {</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">const</span> <span class="prop">obs</span> <span class="op">=</span> <span class="kw">new</span> <span class="fn">IntersectionObserver</span><span class="op">(</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="op">([</span><span class="prop">entry</span><span class="op">]) => {</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">if</span> <span class="op">(</span><span class="prop">entry</span><span class="op">.</span><span class="prop">isIntersecting</span><span class="op">)</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="prop">vis</span><span class="op">.</span><span class="prop">value</span> <span class="op">=</span> <span class="kw">true</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="op">},</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="op">{</span> <span class="prop">threshold</span><span class="op">:</span> <span class="num">0.15</span> <span class="op">}</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="op">)</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">if</span> <span class="op">(</span><span class="prop">el</span><span class="op">.</span><span class="prop">value</span><span class="op">)</span> <span class="prop">obs</span><span class="op">.</span><span class="fn">observe</span><span class="op">(</span><span class="prop">el</span><span class="op">.</span><span class="prop">value</span><span class="op">)</span><br>
+&nbsp;&nbsp;<span class="op">})</span><br>
+<br>
+&nbsp;&nbsp;<span class="kw">return</span> <span class="op">{</span> <span class="prop">el</span><span class="op">,</span> <span class="prop">vis</span> <span class="op">}</span><br>
+<span class="op">}</span><br>
+<br>
+<span class="kw">export default</span> <span class="fn">useReveal</span><span class="type-cursor"></span>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
 <style>
-  .techstack-heading {
-    max-width: 640px;
-    margin-bottom: 2.5rem;
-  }
+.live-badge {
+  font-family: var(--mono);
+  font-size: .62rem;
+  color: var(--accent);
+  letter-spacing: .08em;
+  margin-left: auto;
+  animation: pulse-opacity 2s ease infinite;
+}
+@keyframes pulse-opacity { 0%,100%{opacity:1} 50%{opacity:.45} }
 
-  .techstack .eyebrow {
-    display: block;
-    font-size: 0.8125rem;
-    color: var(--color-text-muted);
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    margin-bottom: 0.5rem;
-  }
+.stack-layout {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 4rem;
+  align-items: start;
+}
 
-  .techstack h2 {
-    font-size: clamp(1.75rem, 3vw, 2.25rem);
-    font-weight: 600;
-    margin: 0 0 0.75rem;
-    letter-spacing: -0.02em;
-  }
+.stack-bars { display: flex; flex-direction: column; gap: .85rem; }
 
-  .techstack-heading p {
-    font-size: 1rem;
-    line-height: 1.6;
-    color: var(--color-text-muted);
-    margin: 0;
-  }
+.skill-row { display: flex; flex-direction: column; gap: .38rem; }
+.skill-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.skill-name { font-family: var(--mono); font-size: .78rem; color: var(--text); }
+.skill-pct  { font-family: var(--mono); font-size: .65rem; color: var(--muted); }
+.skill-track {
+  height: 2px;
+  background: rgba(255,255,255,.06);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.skill-fill {
+  height: 100%;
+  border-radius: 2px;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .95s cubic-bezier(.23,1,.32,1);
+  will-change: transform;
+}
+.skill-fill.animated { transform: scaleX(1); }
+.skill-fill--green { background: linear-gradient(90deg, var(--accent), #82aaff); }
+.skill-fill--blue  { background: linear-gradient(90deg, var(--accent2), var(--accent)); }
 
-  .techstack-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
+.stack-code { position: sticky; top: 5rem; }
+.stack-code .code-window { box-shadow: 0 20px 60px rgba(0,0,0,.5); }
 
-  .techstack-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 0.75rem;
-    padding: 1.25rem 1rem;
-    border-radius: var(--radius-lg);
-    border: 1px solid var(--color-border);
-    background: rgba(255, 255, 255, 0.02);
-    color: var(--color-text-muted);
-    transition: color 0.25s ease, border-color 0.25s ease, background 0.25s ease, transform 0.25s ease;
-  }
-
-  .techstack-item:hover {
-    border-color: var(--color-border-hover);
-    background: rgba(255, 255, 255, 0.04);
-    transform: translateY(-2px);
-  }
-
-  .techstack-logo {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: inherit;
-    line-height: 0;
-  }
-
-  .techstack-logo :global(svg) {
-    width: 40px;
-    height: 40px;
-    flex-shrink: 0;
-    fill: currentColor;
-    color: inherit;
-  }
-
-  .techstack-logo :global(path) {
-    fill: currentColor;
-  }
-
-  .techstack-name {
-    font-size: 0.8125rem;
-    font-weight: 500;
-    text-align: center;
-  }
-
-  /* Colores de marca en hover */
-  .techstack-item--vue:hover { color: #42b883; }
-  .techstack-item--nuxt:hover { color: #00dc82; }
-  .techstack-item--javascript:hover { color: #f7df1e; }
-  .techstack-item--typescript:hover { color: #3178c6; }
-  .techstack-item--astro:hover { color: #ff5d01; }
-  .techstack-item--tailwind:hover { color: #06b6d4; }
-  .techstack-item--vuetify:hover { color: #1696f2; }
-  .techstack-item--pinia:hover { color: #ffd859; }
-  .techstack-item--firebase:hover { color: #ffca28; }
-  .techstack-item--node:hover { color: #339933; }
-  .techstack-item--git:hover { color: #f05032; }
-  .techstack-item--html5:hover { color: #e34f26; }
-  .techstack-item--css3:hover { color: #1572b6; }
-
-  .techstack-item.reveal[data-delay='1'] { transition-delay: 30ms; }
-  .techstack-item.reveal[data-delay='2'] { transition-delay: 60ms; }
-  .techstack-item.reveal[data-delay='3'] { transition-delay: 90ms; }
-  .techstack-item.reveal[data-delay='4'] { transition-delay: 120ms; }
-  .techstack-item.reveal[data-delay='5'] { transition-delay: 150ms; }
-  .techstack-item.reveal[data-delay='6'] { transition-delay: 180ms; }
-  .techstack-item.reveal[data-delay='7'] { transition-delay: 210ms; }
-  .techstack-item.reveal[data-delay='8'] { transition-delay: 240ms; }
-  .techstack-item.reveal[data-delay='9'] { transition-delay: 270ms; }
-  .techstack-item.reveal[data-delay='10'] { transition-delay: 300ms; }
-  .techstack-item.reveal[data-delay='11'] { transition-delay: 330ms; }
-  .techstack-item.reveal[data-delay='12'] { transition-delay: 360ms; }
-
-  @media (min-width: 540px) {
-    .techstack-grid {
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.25rem;
-    }
-  }
-
-  @media (min-width: 768px) {
-    .techstack-grid {
-      grid-template-columns: repeat(4, 1fr);
-      gap: 1.5rem;
-    }
-
-    .techstack-item {
-      padding: 1.5rem 1rem;
-    }
-
-    .techstack-logo :global(svg) {
-      width: 44px;
-      height: 44px;
-    }
-  }
-
-  @media (min-width: 1024px) {
-    .techstack-grid {
-      grid-template-columns: repeat(5, 1fr);
-    }
-  }
+@media (max-width: 900px) {
+  .stack-layout { grid-template-columns: 1fr; }
+  .stack-code { display: none; }
+}
 </style>
+
+<script>
+const barObs = new IntersectionObserver(function(entries) {
+  entries.forEach(function(e) {
+    if (e.isIntersecting) {
+      e.target.classList.add('animated');
+      barObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.3 });
+document.querySelectorAll('.skill-fill').forEach(function(b) { barObs.observe(b); });
+</script>
