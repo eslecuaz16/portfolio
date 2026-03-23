@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import Analytics from '@vercel/analytics/astro';
 import NavBar from '../components/NavBar.astro';
 import WhatsAppFloat from '../components/WhatsAppFloat.astro';
 import type { Locale } from '../i18n/ui';
@@ -49,6 +50,7 @@ const t = getUi(locale);
     <slot/>
   </main>
   <WhatsAppFloat locale={locale} />
+  <Analytics />
 
   <script>
     var cur  = document.getElementById('dt-cursor');
