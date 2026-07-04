@@ -58,6 +58,36 @@ const projectsBase: ProjectBase[] = [
       '<span class="op">}</span>',
     ].join('<br>'),
   },
+  {
+    stack: ['Astro', 'Tailwind', 'Cloudinary', 'Formspree'],
+    filename: 'components/MenuSection.astro',
+    liveUrl: '#',
+    githubUrl: '#',
+    codeHtml: [
+      '<span class="kw">const</span> <span class="op">{</span> <span class="prop">dishes</span> <span class="op">}</span> <span class="op">=</span> <span class="kw">await</span> <span class="fn">getCollection</span><span class="op">(</span><span class="str">\'menu\'</span><span class="op">)</span>',
+      '<span class="cm">// agrupado por categoría</span>',
+      '<span class="kw">const</span> <span class="prop">byCategory</span> <span class="op">=</span> <span class="fn">groupBy</span><span class="op">(</span><span class="prop">dishes</span><span class="op">,</span> <span class="str">\'category\'</span><span class="op">)</span>',
+      '<span class="prop">byCategory</span><span class="op">.</span><span class="fn">get</span><span class="op">(</span><span class="str">\'entradas\'</span><span class="op">)</span>',
+      '<span class="op">&nbsp;&nbsp;.</span><span class="fn">map</span><span class="op">(</span><span class="prop">d</span> <span class="op">=&gt;</span> <span class="op">&lt;</span><span class="tag">MenuCard</span> <span class="op">{</span><span class="op">...</span><span class="prop">d</span><span class="op">.</span><span class="prop">data</span><span class="op">}</span> <span class="op">/&gt;)</span>',
+    ].join('<br>'),
+  },
+  {
+    stack: ['Astro', 'TypeScript', 'Mapbox GL', 'Formspree'],
+    filename: 'lib/filterListings.ts',
+    liveUrl: '#',
+    githubUrl: '#',
+    codeHtml: [
+      '<span class="kw">export function</span><span class="fn"> filterListings</span><span class="op">(</span>',
+      '<span class="prop">&nbsp;&nbsp;listings</span><span class="op">:</span> <span class="tp">Property[]</span><span class="op">,</span>',
+      '<span class="prop">&nbsp;&nbsp;filters</span><span class="op">:</span> <span class="tp">Filters</span>',
+      '<span class="op">) {</span>',
+      '<span class="kw">&nbsp;&nbsp;return</span> <span class="prop">listings</span><span class="op">.</span><span class="fn">filter</span><span class="op">(</span><span class="prop">p</span> <span class="op">=&gt;</span>',
+      '<span class="prop">&nbsp;&nbsp;&nbsp;&nbsp;p</span><span class="op">.</span><span class="prop">price</span> <span class="op">&lt;=</span> <span class="prop">filters</span><span class="op">.</span><span class="prop">maxPrice</span> <span class="op">&amp;&amp;</span>',
+      '<span class="prop">&nbsp;&nbsp;&nbsp;&nbsp;p</span><span class="op">.</span><span class="prop">zone</span> <span class="op">===</span> <span class="prop">filters</span><span class="op">.</span><span class="prop">zone</span>',
+      '<span class="op">&nbsp;&nbsp;)</span>',
+      '<span class="op">}</span>',
+    ].join('<br>'),
+  },
 ];
 
 interface Props {

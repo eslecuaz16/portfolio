@@ -67,6 +67,16 @@ export const ui = {
           title: 'Portfolio — Astro',
           desc: 'Sitio personal con score 97/100 en Lighthouse. Animaciones CSS-only, cursor custom, fuentes non-blocking y arquitectura de componentes.',
         },
+        {
+          num: '004',
+          title: 'Landing — Fonda El Recreo',
+          desc: 'Landing de restaurante con menú dinámico por categorías, imágenes optimizadas vía Cloudinary y formulario de reservas integrado.',
+        },
+        {
+          num: '005',
+          title: 'Landing — Vértice Inmobiliaria',
+          desc: 'Landing inmobiliaria con buscador de propiedades, filtros por zona y precio, y mapa interactivo de ubicaciones con Mapbox.',
+        },
       ],
     },
     tech: {
@@ -219,6 +229,16 @@ export const ui = {
           num: '003',
           title: 'Portfolio — Astro',
           desc: 'Personal site scoring 97/100 on Lighthouse. CSS-only animations, custom cursor, non-blocking fonts and component architecture.',
+        },
+        {
+          num: '004',
+          title: 'Landing — Fonda El Recreo',
+          desc: 'Restaurant landing page with a dynamic menu by category, Cloudinary-optimized images and an integrated reservation form.',
+        },
+        {
+          num: '005',
+          title: 'Landing — Vértice Realty',
+          desc: 'Real estate landing page with a property search, price/zone filters and an interactive Mapbox location map.',
         },
       ],
     },
