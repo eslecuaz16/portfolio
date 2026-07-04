@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import Analytics from '@vercel/analytics/astro';
 import NavBar from '../components/NavBar.astro';
+import Footer from '../components/Footer.astro';
 import WhatsAppFloat from '../components/WhatsAppFloat.astro';
 import type { Locale } from '../i18n/ui';
 import { getUi } from '../i18n/ui';
@@ -49,6 +50,7 @@ const t = getUi(locale);
   <main>
     <slot/>
   </main>
+  <Footer locale={locale} />
   <WhatsAppFloat locale={locale} />
   <Analytics />
 

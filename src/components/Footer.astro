@@ -1,0 +1,91 @@
+---
+import type { Locale } from '../i18n/ui';
+import { getUi } from '../i18n/ui';
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = 'es' } = Astro.props;
+const t = getUi(locale);
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <a href="#hero" class="footer-logo" aria-label={t.nav.homeAria}>
+        <span class="logo-bracket">[</span>Esteban.Lecuona<span class="logo-dot">.</span>dev<span class="logo-bracket">]</span>
+      </a>
+      <p class="footer-tagline">{t.footer.tagline}</p>
+    </div>
+
+    <div class="footer-links">
+      <a href="https://github.com/eslecuaz16" target="_blank" rel="noopener noreferrer">{t.contact.gh}</a>
+      <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">{t.contact.li}</a>
+      <a href="#hero">{t.footer.backToTop}</a>
+    </div>
+
+    <p class="footer-copy">© {year} Esteban Lecuona. {t.footer.rights}</p>
+  </div>
+</footer>
+
+<style>
+.site-footer {
+  border-top: 1px solid var(--border);
+  padding: 2.5rem 0;
+}
+.footer-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+.footer-brand { display: flex; flex-direction: column; gap: .3rem; }
+.footer-logo {
+  font-family: var(--mono);
+  font-size: .8rem;
+  font-weight: 700;
+  color: var(--text);
+  text-decoration: none;
+  letter-spacing: -.01em;
+}
+.footer-logo:hover { color: var(--accent); }
+.footer-tagline {
+  font-family: var(--mono);
+  font-size: .68rem;
+  color: var(--muted);
+  letter-spacing: .04em;
+}
+.footer-links {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+.footer-links a {
+  font-family: var(--mono);
+  font-size: .68rem;
+  letter-spacing: .08em;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color .2s;
+}
+.footer-links a:hover { color: var(--accent); }
+.footer-copy {
+  font-family: var(--mono);
+  font-size: .66rem;
+  color: var(--muted);
+  opacity: .6;
+  letter-spacing: .04em;
+  width: 100%;
+  order: 3;
+  border-top: 1px solid var(--border);
+  padding-top: 1.5rem;
+  margin-top: .25rem;
+}
+
+@media (max-width: 640px) {
+  .footer-inner { flex-direction: column; align-items: flex-start; }
+}
+</style>

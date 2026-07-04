@@ -146,6 +146,16 @@ export const ui = {
       tooltip: 'Hablemos por WhatsApp',
       msg: 'Hola Esteban, vi tu portfolio y me interesa cotizar un proyecto.',
     },
+    footer: {
+      tagline: 'Interfaces web con foco en producto.',
+      rights: 'Todos los derechos reservados.',
+      backToTop: 'Volver arriba ↑',
+    },
+    notFound: {
+      title: 'Página no encontrada',
+      desc: 'La ruta que buscas no existe o fue movida.',
+      cta: 'Volver al inicio',
+    },
   },
   en: {
     nav: {
@@ -288,6 +298,16 @@ export const ui = {
       aria: 'Open WhatsApp chat',
       tooltip: "Let's talk on WhatsApp",
       msg: "Hi Esteban, I saw your portfolio and I'd like to discuss a project.",
+    },
+    footer: {
+      tagline: 'Product-focused web interfaces.',
+      rights: 'All rights reserved.',
+      backToTop: 'Back to top ↑',
+    },
+    notFound: {
+      title: 'Page not found',
+      desc: "The page you're looking for doesn't exist or was moved.",
+      cta: 'Back to home',
     },
   },
 } as const;

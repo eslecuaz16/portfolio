@@ -1,18 +1,26 @@
 ---
 import type { Locale } from '../i18n/ui';
 import { getUi } from '../i18n/ui';
+import vueIcon from '../assets/tech/vue.svg?raw';
+import tsIcon from '../assets/tech/typescript.svg?raw';
+import astroIcon from '../assets/tech/astro.svg?raw';
+import tailwindIcon from '../assets/tech/tailwind.svg?raw';
+import cssIcon from '../assets/tech/css3.svg?raw';
+import vuetifyIcon from '../assets/tech/vuetify.svg?raw';
+import piniaIcon from '../assets/tech/pinia.svg?raw';
+import firebaseIcon from '../assets/tech/firebase.svg?raw';
+import gitIcon from '../assets/tech/git.svg?raw';
 
 const skills = [
-  { name: 'Vue 3 / Nuxt',    pct: 92, color: 'green' },
-  { name: 'TypeScript',       pct: 85, color: 'blue'  },
-  { name: 'Astro',            pct: 88, color: 'green' },
-  { name: 'TailwindCSS',      pct: 90, color: 'blue'  },
-  { name: 'CSS / SCSS',       pct: 94, color: 'green' },
-  { name: 'Vuetify',          pct: 88, color: 'blue'  },
-  { name: 'Pinia / Vuex',     pct: 86, color: 'green' },
-  { name: 'Firebase',         pct: 80, color: 'blue'  },
-  { name: 'Git / GitHub',     pct: 91, color: 'green' },
-  { name: 'Figma',            pct: 78, color: 'blue'  },
+  { name: 'Vue 3 / Nuxt',    pct: 92, color: 'green', icon: vueIcon      },
+  { name: 'TypeScript',       pct: 85, color: 'blue',  icon: tsIcon       },
+  { name: 'Astro',            pct: 88, color: 'green', icon: astroIcon   },
+  { name: 'TailwindCSS',      pct: 90, color: 'blue',  icon: tailwindIcon},
+  { name: 'CSS / SCSS',       pct: 94, color: 'green', icon: cssIcon     },
+  { name: 'Vuetify',          pct: 88, color: 'blue',  icon: vuetifyIcon },
+  { name: 'Pinia / Vuex',     pct: 86, color: 'green', icon: piniaIcon   },
+  { name: 'Firebase',         pct: 80, color: 'blue',  icon: firebaseIcon},
+  { name: 'Git / GitHub',     pct: 91, color: 'green', icon: gitIcon     },
 ];
 
 interface Props {
@@ -36,7 +44,10 @@ const t = getUi(locale);
         {skills.map((s, i) => (
           <div class="skill-row" style={`transition-delay:${i*60}ms`}>
             <div class="skill-meta">
-              <span class="skill-name">{s.name}</span>
+              <span class="skill-name">
+                <span class="skill-icon" set:html={s.icon} />
+                {s.name}
+              </span>
               <span class="skill-pct">{s.pct}%</span>
             </div>
             <div class="skill-track">
@@ -121,7 +132,9 @@ const t = getUi(locale);
   justify-content: space-between;
   align-items: center;
 }
-.skill-name { font-family: var(--mono); font-size: .78rem; color: var(--text); }
+.skill-name { font-family: var(--mono); font-size: .78rem; color: var(--text); display: inline-flex; align-items: center; gap: .55rem; }
+.skill-icon { display: inline-flex; width: 15px; height: 15px; color: var(--muted); flex-shrink: 0; }
+.skill-icon :global(svg) { width: 100%; height: 100%; }
 .skill-pct  { font-family: var(--mono); font-size: .65rem; color: var(--muted); }
 .skill-track {
   height: 2px;
