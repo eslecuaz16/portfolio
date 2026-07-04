@@ -1,10 +1,15 @@
 ---
 import type { Locale } from '../i18n/ui';
 import { getUi } from '../i18n/ui';
+import saasFintech from '../assets/projects/saas-fintech.svg';
+import garageManager from '../assets/projects/garage-manager.svg';
+import portfolioAstro from '../assets/projects/portfolio-astro.svg';
+import fondaRecreo from '../assets/projects/fonda-recreo.svg';
+import verticeInmobiliaria from '../assets/projects/vertice-inmobiliaria.svg';
 
 interface ProjectBase {
   stack: string[];
-  codeHtml: string;
+  image: ImageMetadata;
   filename: string;
   liveUrl: string;
   githubUrl: string;
@@ -16,77 +21,35 @@ const projectsBase: ProjectBase[] = [
     filename: 'stores/iam.ts',
     liveUrl: '#',
     githubUrl: '#',
-    codeHtml: [
-      '<span class="kw">const</span><span class="prop"> useIAM</span> <span class="op">=</span> <span class="fn">defineStore</span><span class="op">(</span>',
-      '<span class="str">&nbsp;&nbsp;\'iam\'</span><span class="op">,</span> <span class="cm">// Pinia store</span>',
-      '<span class="op">&nbsp;&nbsp;() =&gt; ({</span>',
-      '<span class="prop">&nbsp;&nbsp;&nbsp;&nbsp;user</span><span class="op">:</span> <span class="fn">ref</span><span class="op">&lt;</span><span class="tp">User | null</span><span class="op">&gt;(</span><span class="num">null</span><span class="op">),</span>',
-      '<span class="prop">&nbsp;&nbsp;&nbsp;&nbsp;perms</span><span class="op">:</span> <span class="fn">ref</span><span class="op">&lt;</span><span class="tp">string[]</span><span class="op">&gt;([])</span>',
-      '<span class="op">&nbsp;&nbsp;})</span>',
-      '<span class="op">)</span>',
-    ].join('<br>'),
+    image: saasFintech,
   },
   {
     stack: ['Vue', 'Vuetify', 'jsPDF', 'html2canvas'],
     filename: 'utils/exportPDF.ts',
     liveUrl: '#',
     githubUrl: '#',
-    codeHtml: [
-      '<span class="kw">async function</span><span class="fn"> exportPDF</span><span class="op">() {</span>',
-      '<span class="kw">&nbsp;&nbsp;const</span><span class="prop"> doc</span> <span class="op">=</span> <span class="kw">new</span> <span class="fn">jsPDF</span><span class="op">()</span>',
-      '<span class="kw">&nbsp;&nbsp;await</span> <span class="fn">html2canvas</span><span class="op">(</span><span class="prop">el</span><span class="op">)</span>',
-      '<span class="cm">&nbsp;&nbsp;// anti-duplicate page logic</span>',
-      '<span class="prop">&nbsp;&nbsp;doc</span><span class="op">.</span><span class="fn">save</span><span class="op">(</span>',
-      '<span class="str">&nbsp;&nbsp;&nbsp;&nbsp;`orden-$&#123;id&#125;.pdf`</span>',
-      '<span class="op">&nbsp;&nbsp;)</span>',
-      '<span class="op">}</span>',
-    ].join('<br>'),
+    image: garageManager,
   },
   {
     stack: ['Astro', 'TypeScript', 'CSS', 'Formspree'],
     filename: 'scripts/reveal.ts',
     liveUrl: '#',
     githubUrl: 'https://github.com/eslecuaz16/portfolio',
-    codeHtml: [
-      '<span class="kw">export function</span><span class="fn"> initReveal</span><span class="op">() {</span>',
-      '<span class="kw">&nbsp;&nbsp;const</span><span class="prop"> obs</span> <span class="op">=</span> <span class="kw">new</span>',
-      '<span class="fn">&nbsp;&nbsp;&nbsp;&nbsp;IntersectionObserver</span><span class="op">(</span>',
-      '<span class="op">&nbsp;&nbsp;&nbsp;&nbsp;([</span><span class="prop">entry</span><span class="op">]) =&gt; {</span>',
-      '<span class="kw">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if</span> <span class="op">(</span><span class="prop">entry</span><span class="op">.</span><span class="prop">isIntersecting</span><span class="op">)</span>',
-      '<span class="prop">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;el</span><span class="op">.</span><span class="fn">classList</span><span class="op">.</span><span class="fn">add</span><span class="op">(</span><span class="str">\'visible\'</span><span class="op">)</span>',
-      '<span class="op">&nbsp;&nbsp;})</span>',
-      '<span class="op">}</span>',
-    ].join('<br>'),
+    image: portfolioAstro,
   },
   {
     stack: ['Astro', 'Tailwind', 'Cloudinary', 'Formspree'],
     filename: 'components/MenuSection.astro',
     liveUrl: '#',
     githubUrl: '#',
-    codeHtml: [
-      '<span class="kw">const</span> <span class="op">{</span> <span class="prop">dishes</span> <span class="op">}</span> <span class="op">=</span> <span class="kw">await</span> <span class="fn">getCollection</span><span class="op">(</span><span class="str">\'menu\'</span><span class="op">)</span>',
-      '<span class="cm">// agrupado por categoría</span>',
-      '<span class="kw">const</span> <span class="prop">byCategory</span> <span class="op">=</span> <span class="fn">groupBy</span><span class="op">(</span><span class="prop">dishes</span><span class="op">,</span> <span class="str">\'category\'</span><span class="op">)</span>',
-      '<span class="prop">byCategory</span><span class="op">.</span><span class="fn">get</span><span class="op">(</span><span class="str">\'entradas\'</span><span class="op">)</span>',
-      '<span class="op">&nbsp;&nbsp;.</span><span class="fn">map</span><span class="op">(</span><span class="prop">d</span> <span class="op">=&gt;</span> <span class="op">&lt;</span><span class="tag">MenuCard</span> <span class="op">{</span><span class="op">...</span><span class="prop">d</span><span class="op">.</span><span class="prop">data</span><span class="op">}</span> <span class="op">/&gt;)</span>',
-    ].join('<br>'),
+    image: fondaRecreo,
   },
   {
     stack: ['Astro', 'TypeScript', 'Mapbox GL', 'Formspree'],
     filename: 'lib/filterListings.ts',
     liveUrl: '#',
     githubUrl: '#',
-    codeHtml: [
-      '<span class="kw">export function</span><span class="fn"> filterListings</span><span class="op">(</span>',
-      '<span class="prop">&nbsp;&nbsp;listings</span><span class="op">:</span> <span class="tp">Property[]</span><span class="op">,</span>',
-      '<span class="prop">&nbsp;&nbsp;filters</span><span class="op">:</span> <span class="tp">Filters</span>',
-      '<span class="op">) {</span>',
-      '<span class="kw">&nbsp;&nbsp;return</span> <span class="prop">listings</span><span class="op">.</span><span class="fn">filter</span><span class="op">(</span><span class="prop">p</span> <span class="op">=&gt;</span>',
-      '<span class="prop">&nbsp;&nbsp;&nbsp;&nbsp;p</span><span class="op">.</span><span class="prop">price</span> <span class="op">&lt;=</span> <span class="prop">filters</span><span class="op">.</span><span class="prop">maxPrice</span> <span class="op">&amp;&amp;</span>',
-      '<span class="prop">&nbsp;&nbsp;&nbsp;&nbsp;p</span><span class="op">.</span><span class="prop">zone</span> <span class="op">===</span> <span class="prop">filters</span><span class="op">.</span><span class="prop">zone</span>',
-      '<span class="op">&nbsp;&nbsp;)</span>',
-      '<span class="op">}</span>',
-    ].join('<br>'),
+    image: verticeInmobiliaria,
   },
 ];
 
@@ -123,14 +86,21 @@ const codeLabel = locale === 'es' ? 'Ver código de' : 'View code for';
             </div>
           </div>
 
-          <div class="proj-code-preview">
+          <div class="proj-preview">
             <div class="code-bar" style="padding:.45rem .85rem">
               <span class="dot dot-r" style="width:8px;height:8px"></span>
               <span class="dot dot-y" style="width:8px;height:8px"></span>
               <span class="dot dot-g" style="width:8px;height:8px"></span>
               <span class="code-fname">{p.filename}</span>
             </div>
-            <div class="code-body" style="padding:.9rem 1.1rem;font-size:.69rem" set:html={p.codeHtml} />
+            <img
+              src={p.image.src}
+              width={p.image.width}
+              height={p.image.height}
+              alt={`${t.projects.preview} ${meta.title}`}
+              loading="lazy"
+              class="proj-thumb"
+            />
           </div>
 
           <div class="proj-body">
@@ -169,7 +139,7 @@ const codeLabel = locale === 'es' ? 'Ver código de' : 'View code for';
   border-color: rgba(79, 140, 255, .28);
   transform: translateY(-5px);
 }
-.proj-card:hover .proj-code-preview {
+.proj-card:hover .proj-preview {
   opacity: 1;
   transform: translateY(0);
 }
@@ -196,14 +166,21 @@ const codeLabel = locale === 'es' ? 'Ver código de' : 'View code for';
   transition: color .2s;
 }
 .proj-link:hover { color: var(--accent); }
-.proj-code-preview {
+.proj-preview {
   margin: 0 1.25rem;
   border: 1px solid var(--border);
   border-radius: var(--radius);
   overflow: hidden;
-  opacity: .65;
+  opacity: .8;
   transform: translateY(4px);
   transition: opacity .3s, transform .3s;
+}
+.proj-thumb {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 480 / 300;
+  object-fit: cover;
 }
 .proj-body {
   padding: 1.25rem 1.6rem 1.6rem;

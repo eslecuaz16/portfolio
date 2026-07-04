@@ -51,6 +51,7 @@ export const ui = {
       sub: 'Proyectos donde diseño, código y lógica de negocio se unen para crear resultados reales.',
       live: '↗ Live',
       github: 'GitHub',
+      preview: 'Vista previa de',
       cards: [
         {
           num: '001',
@@ -214,6 +215,7 @@ export const ui = {
       sub: 'Projects where design, code and business logic come together for real outcomes.',
       live: '↗ Live',
       github: 'GitHub',
+      preview: 'Preview of',
       cards: [
         {
           num: '001',

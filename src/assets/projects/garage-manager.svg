@@ -1,0 +1,52 @@
+<svg viewBox="0 0 480 300" xmlns="http://www.w3.org/2000/svg" font-family="Arial, Helvetica, sans-serif">
+  <rect width="480" height="300" fill="#0B1020"/>
+
+  <rect x="0" y="0" width="480" height="46" fill="#0d1424"/>
+  <line x1="0" y1="46" x2="480" y2="46" stroke="#26324A" stroke-width="1"/>
+  <text x="24" y="29" fill="#F5F7FA" font-size="14" font-weight="700">E&amp;E Garage</text>
+  <rect x="180" y="15" width="170" height="18" rx="9" fill="#121A2B" stroke="#26324A"/>
+  <text x="192" y="28" fill="#AAB3C5" font-size="9">Buscar orden…</text>
+  <rect x="378" y="13" width="82" height="22" rx="6" fill="#4F8CFF"/>
+  <text x="392" y="28" fill="#0B1020" font-size="9" font-weight="700">+ Nueva orden</text>
+
+  <g font-size="9" fill="#AAB3C5" letter-spacing=".5" font-family="'JetBrains Mono', monospace">
+    <text x="24" y="70">ORDEN</text>
+    <text x="100" y="70">CLIENTE</text>
+    <text x="230" y="70">VEHÍCULO</text>
+    <text x="360" y="70">ESTADO</text>
+  </g>
+  <line x1="24" y1="80" x2="456" y2="80" stroke="#26324A" stroke-width="1"/>
+
+  <g font-family="'JetBrains Mono', monospace" font-size="10">
+    <text x="24" y="102" fill="#F5F7FA">#0231</text>
+    <text x="100" y="102" fill="#F5F7FA">R. Domínguez</text>
+    <text x="230" y="102" fill="#AAB3C5">Nissan Versa '19</text>
+    <rect x="360" y="90" width="66" height="18" rx="9" fill="rgba(34,211,238,.12)" stroke="#22D3EE"/>
+    <text x="370" y="102" fill="#22D3EE" font-size="8">ENTREGADO</text>
+
+    <line x1="24" y1="118" x2="456" y2="118" stroke="#1a2338" stroke-width="1"/>
+    <text x="24" y="140" fill="#F5F7FA">#0232</text>
+    <text x="100" y="140" fill="#F5F7FA">L. Marín</text>
+    <text x="230" y="140" fill="#AAB3C5">VW Jetta '21</text>
+    <rect x="360" y="128" width="66" height="18" rx="9" fill="rgba(79,140,255,.12)" stroke="#4F8CFF"/>
+    <text x="368" y="140" fill="#4F8CFF" font-size="8">EN PROCESO</text>
+
+    <line x1="24" y1="156" x2="456" y2="156" stroke="#1a2338" stroke-width="1"/>
+    <text x="24" y="178" fill="#F5F7FA">#0233</text>
+    <text x="100" y="178" fill="#F5F7FA">A. Castillo</text>
+    <text x="230" y="178" fill="#AAB3C5">Kia Rio '20</text>
+    <rect x="360" y="166" width="66" height="18" rx="9" fill="rgba(139,92,246,.14)" stroke="#8B5CF6"/>
+    <text x="378" y="178" fill="#c9b6ff" font-size="8">LISTO</text>
+
+    <line x1="24" y1="194" x2="456" y2="194" stroke="#1a2338" stroke-width="1"/>
+    <text x="24" y="216" fill="#F5F7FA">#0234</text>
+    <text x="100" y="216" fill="#F5F7FA">G. Peña</text>
+    <text x="230" y="216" fill="#AAB3C5">Chevrolet Aveo '18</text>
+    <rect x="360" y="204" width="66" height="18" rx="9" fill="rgba(255,77,109,.1)" stroke="#ff4d6d"/>
+    <text x="374" y="216" fill="#ff9fb0" font-size="8">RETRASO</text>
+  </g>
+
+  <rect x="24" y="234" width="432" height="46" rx="8" fill="#121A2B" stroke="#26324A"/>
+  <text x="40" y="252" fill="#AAB3C5" font-size="9">Órdenes exportadas este mes</text>
+  <text x="40" y="270" fill="#4F8CFF" font-size="14" font-weight="700" font-family="'JetBrains Mono', monospace">128 PDF</text>
+</svg>

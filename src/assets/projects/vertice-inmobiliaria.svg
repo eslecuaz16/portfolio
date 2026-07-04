@@ -1,0 +1,45 @@
+<svg viewBox="0 0 480 300" xmlns="http://www.w3.org/2000/svg" font-family="Arial, Helvetica, sans-serif">
+  <defs>
+    <linearGradient id="prop-grad-1" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1c3b34"/>
+      <stop offset="100%" stop-color="#2DD4A7"/>
+    </linearGradient>
+  </defs>
+  <rect width="480" height="300" fill="#0b0f10"/>
+
+  <rect x="0" y="0" width="480" height="40" fill="#10171a"/>
+  <line x1="0" y1="40" x2="480" y2="40" stroke="#22302f" stroke-width="1"/>
+  <text x="20" y="26" fill="#F5F7FA" font-size="14" font-weight="700">Vértice <tspan fill="#D4AF6A">Inmobiliaria</tspan></text>
+  <g font-size="8" letter-spacing="1" fill="#9fb0ac">
+    <text x="248" y="24">COMPRAR</text>
+    <text x="316" y="24">RENTAR</text>
+    <text x="376" y="24">VENDER</text>
+    <text x="434" y="24">CONTACTO</text>
+  </g>
+
+  <text x="20" y="86" fill="#F5F7FA" font-size="22" font-weight="700">Encuentra el lugar</text>
+  <text x="20" y="114" fill="#F5F7FA" font-size="22" font-weight="700">para tu próximo <tspan fill="#D4AF6A">capítulo.</tspan></text>
+
+  <rect x="20" y="134" width="440" height="42" rx="8" fill="#121a1c" stroke="#22302f"/>
+  <line x1="164" y1="140" x2="164" y2="170" stroke="#22302f"/>
+  <line x1="308" y1="140" x2="308" y2="170" stroke="#22302f"/>
+  <text x="36" y="151" fill="#7c8c88" font-size="8">ZONA</text>
+  <text x="36" y="165" fill="#F5F7FA" font-size="9">Polanco, CDMX</text>
+  <text x="180" y="151" fill="#7c8c88" font-size="8">PRECIO MÁX.</text>
+  <text x="180" y="165" fill="#F5F7FA" font-size="9">$4,500,000</text>
+  <text x="324" y="151" fill="#7c8c88" font-size="8">RECÁMARAS</text>
+  <text x="324" y="165" fill="#F5F7FA" font-size="9">2+</text>
+  <rect x="404" y="142" width="48" height="24" rx="6" fill="#D4AF6A"/>
+  <text x="414" y="158" fill="#10171a" font-size="9" font-weight="700">Buscar</text>
+
+  <g>
+    <rect x="20" y="196" width="132" height="88" rx="8" fill="url(#prop-grad-1)"/>
+    <text x="30" y="270" fill="#0b0f10" font-size="9" font-weight="700">$3.2M · Polanco</text>
+
+    <rect x="164" y="196" width="132" height="88" rx="8" fill="url(#prop-grad-1)" opacity=".85"/>
+    <text x="174" y="270" fill="#0b0f10" font-size="9" font-weight="700">$2.1M · Roma Nte.</text>
+
+    <rect x="308" y="196" width="132" height="88" rx="8" fill="url(#prop-grad-1)" opacity=".7"/>
+    <text x="318" y="270" fill="#0b0f10" font-size="9" font-weight="700">$4.4M · Condesa</text>
+  </g>
+</svg>
