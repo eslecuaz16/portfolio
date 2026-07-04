@@ -98,12 +98,14 @@ const options = t.contact.options;
   gap: 5rem;
   align-items: start;
 }
+.contact-left { min-width: 0; }
 .contact-heading {
   font-size: clamp(2.8rem, 5.5vw, 5rem);
   font-weight: 800;
   letter-spacing: -.04em;
   line-height: .95;
   margin-bottom: 2rem;
+  overflow-wrap: break-word;
 }
 .heading-grad {
   background: linear-gradient(135deg, var(--accent), var(--accent-purple), var(--accent2));
@@ -208,6 +210,9 @@ const options = t.contact.options;
 @media (max-width: 540px) {
   .cform-row { grid-template-columns: 1fr; }
   .cform { padding: 1.5rem; }
+}
+@media (max-width: 420px) {
+  .contact-heading { font-size: clamp(2.1rem, 10.5vw, 2.8rem); }
 }
 </style>
 
